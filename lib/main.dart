@@ -1,7 +1,8 @@
 // ignore_for_file: unused_import, prefer_const_constructors, prefer_typing_uninitialized_variables
 // ignore_for_file: prefer_const_literals_to_create_immutables
+import 'package:college_manager/attendance.dart';
+import 'package:college_manager/home.dart';
 import 'package:college_manager/splash.dart';
-import 'package:college_manager/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -31,10 +32,8 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     final List pages = [
-      Center(
-        child: Text("This is Home page"),
-      ),
-      TimeTable(),
+      Home(),
+      Attendance(),
     ];
     return Scaffold(
       body: pages[_selectedindex],
@@ -52,7 +51,7 @@ class _MainAppState extends State<MainApp> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: "Time Table",
+            label: "Attendance",
           ),
         ],
       ),

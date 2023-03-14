@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables,prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -55,27 +56,57 @@ class _TimeTableState extends State<TimeTable> {
       getDay();
     });
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (isEvening > 16)
-          Center(
-            child: Text("Tommorow's Time Table"),
-          ),
-        if (isEvening < 16)
-          Center(
-            child: Text("Today's Time Table"),
-          ),
-        Center(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Center(child: Text(day[index]));
-            },
-            itemCount: day.length,
-          ),
+      body: Container(
+        width: 370,
+        height: 270,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 3),
+          borderRadius: BorderRadius.circular(20),
+          color: Color.fromARGB(255, 255, 255, 39),
         ),
-      ],
-    ));
+        child: Column(
+          children: [
+            isEvening > 16
+                ? Container(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      "Tommorow's Time Table",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                : Container(
+                    alignment: Alignment.topCenter,
+                    child: Text("Today's Time Table",
+                        style: TextStyle(fontSize: 20)),
+                  ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "${DateFormat.EEEE().format(DateTime.now())}\n${DateFormat.MMMMd().format(DateTime.now())}",
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 50, top: 5),
+                        child: Text(
+                          day[index],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      );
+                    },
+                    itemCount: day.length,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
