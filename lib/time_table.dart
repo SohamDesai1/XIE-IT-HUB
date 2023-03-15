@@ -19,7 +19,9 @@ class TimeTable extends StatefulWidget {
 
 class _TimeTableState extends State<TimeTable> {
   var day;
+  var currLec;
   var isEvening = DateTime.now().hour;
+  var hour = DateTime.now().hour;
   var monday = ['GIT', 'WT', 'DMBI', 'AI&DS', 'BI-LAB'];
   var tuesday = ['WEBX', 'DMBI', 'Mini Project', 'Mini Project', 'MAD-LAB'];
   var wednesday = ['AI&DS', 'WEBX', 'WT', 'GIT', 'SENSOR-LAB'];
@@ -50,10 +52,37 @@ class _TimeTableState extends State<TimeTable> {
     }
   }
 
+  void getCurrentLec() {
+    if ((DateTime.now().hour == 8 && DateTime.now().minute >= 45) ||
+        (DateTime.now().hour == 9 && DateTime.now().minute < 45)) {
+      currLec = day[0];
+    }
+    if ((DateTime.now().hour == 9 && DateTime.now().minute >= 45) ||
+        (DateTime.now().hour == 10 && DateTime.now().minute <= 45)) {
+      currLec = day[1];
+    }
+    if ((DateTime.now().hour == 11 && DateTime.now().minute >= 0) ||
+        (DateTime.now().hour == 12 && DateTime.now().minute < 0)) {
+      currLec = day[2];
+    }
+    if ((DateTime.now().hour == 12 && DateTime.now().minute >= 0) ||
+        (DateTime.now().hour == 13 && DateTime.now().minute <= 0)) {
+      currLec = day[3];
+    }
+    if ((DateTime.now().hour == 13 && DateTime.now().minute >= 30) ||
+        (DateTime.now().hour == 15 && DateTime.now().minute < 30)) {
+      currLec = day[4];
+    }
+    if (DateTime.now().hour > 15 && DateTime.now().minute >= 30) {
+      currLec = "Din Khatam!!";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     setState(() {
       getDay();
+      getCurrentLec();
     });
     return Scaffold(
       body: Container(
@@ -92,7 +121,9 @@ class _TimeTableState extends State<TimeTable> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(left: 50, top: 5),
+                        padding: const EdgeInsets.only(
+                          left: 50,
+                        ),
                         child: Text(
                           day[index],
                           style: TextStyle(fontSize: 20),
@@ -104,6 +135,19 @@ class _TimeTableState extends State<TimeTable> {
                 ),
               ],
             ),
+            Divider(
+              color: Colors.black,
+              thickness: 2,
+              endIndent: 50,
+              indent: 50,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Current Lecture:\n$currLec",
+                style: TextStyle(fontSize: 20),
+              ),
+            )
           ],
         ),
       ),
