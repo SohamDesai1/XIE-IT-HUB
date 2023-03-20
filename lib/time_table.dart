@@ -25,8 +25,8 @@ class _TimeTableState extends State<TimeTable> {
   var monday = ['GIT', 'WT', 'DMBI', 'AI&DS', 'BI-LAB'];
   var tuesday = ['WEBX', 'DMBI', 'Mini Project', 'Mini Project', 'MAD-LAB'];
   var wednesday = ['AI&DS', 'WEBX', 'WT', 'GIT', 'SENSOR-LAB'];
-  var thursday = ['GIT', 'WT', 'DMBI', 'AI&DS', 'DS-LAB'];
-  var friday = ['WEB-LAB', 'WT', 'VAC', 'MENTORY', 'TPO'];
+  var thursday = ['GIT', 'DMBI', 'AI&DS', 'WT', 'DS-LAB'];
+  var friday = ['WEB-LAB', 'WEBX', 'VAC', 'MENTORY', 'TPO'];
 
   void getDay() {
     var getday = DateTime.now().weekday;
@@ -87,7 +87,7 @@ class _TimeTableState extends State<TimeTable> {
     return Scaffold(
       body: Container(
         width: 370,
-        height: 270,
+        height: 250,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: 3),
           borderRadius: BorderRadius.circular(20),
@@ -108,14 +108,16 @@ class _TimeTableState extends State<TimeTable> {
                     child: Text("Today's Time Table",
                         style: TextStyle(fontSize: 20)),
                   ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    "${DateFormat.EEEE().format(DateTime.now())}\n${DateFormat.MMMMd().format(DateTime.now())}",
-                    style: TextStyle(fontSize: 30),
-                  ),
-                ),
+                    child: Text(
+                  "${DateFormat.EEEE().format(DateTime.now())}\n${DateFormat.MMMMd().format(DateTime.now())}",
+                  style: TextStyle(fontSize: 30),
+                )),
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -134,6 +136,9 @@ class _TimeTableState extends State<TimeTable> {
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 20,
             ),
             Divider(
               color: Colors.black,

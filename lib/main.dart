@@ -2,7 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 import 'package:college_manager/attendance.dart';
 import 'package:college_manager/home.dart';
-import 'package:college_manager/splash.dart';
+// import 'package:college_manager/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -36,6 +36,9 @@ class _MainAppState extends State<MainApp> {
       Attendance(),
     ];
     return Scaffold(
+      appBar: AppBar(
+        title: Text("College Manager"),
+      ),
       body: pages[_selectedindex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
