@@ -45,10 +45,11 @@ class _TimeTableState extends State<TimeTable> {
     if (getday == 5 || (getday == 4 && isEvening > 16)) {
       day = friday;
     }
-    if (getday == 6 ||
-        getday == 7 ||
-        (getday == 5 && DateTime.now().hour > 16)) {
+    if (getday == 6 || getday == 7 || (getday == 5 && isEvening > 16)) {
       day = "CHUTTI HAI!!";
+    }
+    if ((getday == 7 && isEvening > 16)) {
+      day = monday;
     }
   }
 
