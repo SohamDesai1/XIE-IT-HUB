@@ -24,6 +24,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         name: "Home",
+        redirect: (context, state) =>
+            ref.read(goRouterNotifierProvider).isLoggedIn == true
+                ? '/home'
+                : '/login',
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
