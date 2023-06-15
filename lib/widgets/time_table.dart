@@ -27,6 +27,19 @@ class _TimeTableState extends State<TimeTable> {
   var wednesday = ['AI&DS', 'WEBX', 'WT', 'GIT', 'SENSOR-LAB'];
   var thursday = ['GIT', 'DMBI', 'AI&DS', 'WT', 'DS-LAB'];
   var friday = ['WEB-LAB', 'WEBX', 'VAC', 'MENTORY', 'TPO'];
+  var weekend = [
+    'CHUTTI HAI!!',
+    'CHUTTI HAI!!',
+    'CHUTTI HAI!!',
+    'CHUTTI HAI!!',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    getDay();
+    getCurrentLec();
+  }
 
   void getDay() {
     var getday = DateTime.now().weekday;
@@ -46,7 +59,7 @@ class _TimeTableState extends State<TimeTable> {
       day = friday;
     }
     if (getday == 6 || getday == 7 || (getday == 5 && isEvening > 16)) {
-      day = "CHUTTI HAI!!";
+      day = weekend;
     }
     if ((getday == 7 && isEvening > 16)) {
       day = monday;
@@ -76,15 +89,13 @@ class _TimeTableState extends State<TimeTable> {
     }
     if (DateTime.now().hour > 15 && DateTime.now().minute >= 30) {
       currLec = "Din Khatam!!";
+    } else {
+      currLec = "No Lectures";
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      getDay();
-      getCurrentLec();
-    });
     return Scaffold(
       body: Container(
         width: 370,

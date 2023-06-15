@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors ,prefer_const_literals_to_create_immutables
 
-import 'package:college_manager/time_table.dart';
+import 'package:college_manager/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +20,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return TimeTable();
+    return Scaffold(
+      bottomNavigationBar: BottomNavBar(),
+    );
   }
 }

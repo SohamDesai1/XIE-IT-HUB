@@ -1,63 +1,26 @@
-// ignore_for_file: unused_import, prefer_const_constructors, prefer_typing_uninitialized_variables
-// ignore_for_file: prefer_const_literals_to_create_immutables
-import 'package:college_manager/attendance.dart';
-import 'package:college_manager/home.dart';
-// import 'package:college_manager/splash.dart';
+import 'package:college_manager/routes/go_router_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MainApp(),
-  ));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class MyApp extends ConsumerStatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
 }
 
-class _MainAppState extends State<MainApp> {
-  int _selectedindex = 0;
-
-  void _itemTapped(int index) {
-    setState(() {
-      _selectedindex = index;
-    });
-  }
-
+class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final List pages = [
-      Home(),
-      Attendance(),
-    ];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("College Manager"),
-      ),
-      body: pages[_selectedindex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: _itemTapped,
-        currentIndex: _selectedindex,
-        selectedItemColor: Colors.greenAccent,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Colors.black,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: "Attendance",
-          ),
-        ],
-      ),
+    final router = ref.watch(goRouterProvider);
+    return MaterialApp.router(
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      routerDelegate: router.routerDelegate,
     );
   }
 }
