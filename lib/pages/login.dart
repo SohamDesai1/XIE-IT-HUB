@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:college_manager/providers/firebase_auth.dart';
 import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:college_manager/routes/go_router_provider.dart';
@@ -13,46 +15,124 @@ class Login extends ConsumerStatefulWidget {
 
 class _LoginState extends ConsumerState<Login> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController email;
-  late TextEditingController password;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final auth = ref.watch(authRepositoryProvider);
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Form(
-          key: _formKey,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 70.0),
           child: Column(
             children: [
-              TextFormField(
-                controller: email,
-                decoration: const InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
+              SizedBox(
+                width: 300,
+                child: Image.asset("assets/images/student.png"),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                "Login",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
               ),
               const SizedBox(
                 height: 10,
               ),
-              TextFormField(
-                controller: password,
-                decoration: const InputDecoration(labelText: 'Password'),
-                keyboardType: TextInputType.visiblePassword,
+              Text(
+                "Login to continue to app",
+                style: TextStyle(fontSize: 15, color: Colors.grey[500]),
               ),
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      final user = auth.loginWithEmailAndPassword(
-                          email.text, password.text);
-                      if (user != null) {
-                        ref.read(goRouterNotifierProvider).isLoggedIn = true;
-                        ref.read(goRouterProvider).go('/');
-                      }
-                    }
-                  },
-                  child: const Text("Login"))
+              Center(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Email",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          controller: email,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      const Text(
+                        "Password",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: 350,
+                        child: TextFormField(
+                          controller: password,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: 350,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.0)),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                final user = auth.loginWithEmailAndPassword(
+                                    email.text, password.text);
+                                if (user != null) {
+                                  ref
+                                      .read(goRouterNotifierProvider)
+                                      .isLoggedIn = true;
+                                  ref.read(goRouterProvider).go('/');
+                                }
+                              }
+                            },
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(fontSize: 16),
+                            )),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
