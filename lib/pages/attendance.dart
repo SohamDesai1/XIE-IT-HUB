@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:college_manager/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,12 +22,13 @@ class _AttendanceState extends State<Attendance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("d")),
+      appBar: AppBar(title: Text("Attendance")),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {},
       //   child: Icon(Icons.add),
       // ),
-      body: Text("")
+      body: Text(""),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

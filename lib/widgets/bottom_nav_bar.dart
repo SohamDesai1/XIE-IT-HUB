@@ -31,7 +31,7 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
   Widget build(BuildContext context) {
     final selectedindex = ref.watch(navigationProvider);
     return BottomNavigationBar(
-      onTap: _itemTapped,
+      onTap: (value) => _itemTapped(value),
       currentIndex: selectedindex,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(

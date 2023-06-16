@@ -1,5 +1,8 @@
+import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../widgets/bottom_nav_bar.dart';
 
 class Profile extends ConsumerStatefulWidget {
   const Profile({super.key});
@@ -9,9 +12,21 @@ class Profile extends ConsumerStatefulWidget {
 }
 
 class _ProfileState extends ConsumerState<Profile> {
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(),
+      bottomNavigationBar: const BottomNavBar(),
+      body: Column(
+        children: [
+          const Text("Profile Page"),
+          ElevatedButton(
+              onPressed: () {
+                ref.read(goRouterNotifierProvider).isLoggedIn == false;
+              },
+              child: const Text("Log Out"))
+        ],
+      ),
+    );
   }
 }

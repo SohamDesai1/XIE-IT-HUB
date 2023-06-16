@@ -1,6 +1,7 @@
 import 'package:college_manager/pages/attendance.dart';
 import 'package:college_manager/pages/home.dart';
 import 'package:college_manager/pages/home_page.dart';
+import 'package:college_manager/pages/login.dart';
 import 'package:college_manager/pages/profile.dart';
 import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:flutter/material.dart';
@@ -17,28 +18,43 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: notifier,
     initialLocation: '/',
     routes: [
-      ShellRoute(
-        navigatorKey: _shell,
-        builder: (context, state, child) => const Home(),
-      ),
       GoRoute(
-        path: '/',
+        path: '/home',
         name: "Home",
-        redirect: (context, state) =>
-            ref.read(goRouterNotifierProvider).isLoggedIn == true
-                ? '/home'
-                : '/login',
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => HomePage(key: state.pageKey),
       ),
       GoRoute(
         path: '/attendance',
         name: "Attendance",
-        builder: (context, state) => const Attendance(),
+        builder: (context, state) => Attendance(key: state.pageKey),
       ),
       GoRoute(
         path: '/profile',
         name: "Profile",
-        builder: (context, state) => const Profile(),
+        builder: (context, state) => Profile(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/login',
+        name: "Login",
+        builder: (context, state) => Login(key: state.pageKey),
+      ),
+      ShellRoute(
+        navigatorKey: _shell,
+        builder: (context, state, child) =>
+            Home(key: state.pageKey, child: child),
+        routes: [
+          GoRoute(
+            path: '/',
+            name: "Root",
+            redirect: (context, state) =>
+                ref.read(goRouterNotifierProvider).isLoggedIn == true
+                    ? '/'
+                    : '/login',
+            builder: (context, state) => HomePage(
+              key: state.pageKey,
+            ),
+          )
+        ],
       ),
     ],
   );
