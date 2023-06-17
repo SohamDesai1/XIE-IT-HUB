@@ -27,6 +27,19 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     final router = ref.watch(goRouterProvider);
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        canvasColor: const Color.fromARGB(255, 229, 246, 254),
+        appBarTheme: const AppBarTheme(
+          toolbarHeight: 80,
+          elevation: 0,
+          titleTextStyle: TextStyle(
+              fontSize: 22,
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.w700),
+          color: Color.fromARGB(255, 229, 246, 254),
+        ),
+      ),
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,

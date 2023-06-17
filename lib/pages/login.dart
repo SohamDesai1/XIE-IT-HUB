@@ -32,7 +32,7 @@ class _LoginState extends ConsumerState<Login> {
             children: [
               SizedBox(
                 width: 150,
-                child: Image.asset("assets/images/student.png"),
+                child: Image.asset("assets/images/home.png"),
               ),
               const SizedBox(
                 height: 30,
@@ -134,15 +134,15 @@ class _LoginState extends ConsumerState<Login> {
                             color: const Color.fromARGB(255, 2, 101, 255)),
                         child: TextButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              final user = auth.loginWithEmailAndPassword(
-                                  email.text, password.text);
-                              if (user != null) {
-                                ref.read(goRouterNotifierProvider).isLoggedIn =
-                                    true;
-                                GoRouter.of(context).push('/');
-                              }
-                            }
+                            // if (_formKey.currentState!.validate()) {
+                            //   final user = auth.loginWithEmailAndPassword(
+                            //       email.text, password.text);
+                            //   if (user != null) {
+                            ref.read(goRouterNotifierProvider).isLoggedIn =
+                                true;
+                            GoRouter.of(context).pushReplacement('/');
+                            // }
+                            // }
                           },
                           child: const Text(
                             "Login",
@@ -194,7 +194,7 @@ class _LoginState extends ConsumerState<Login> {
                       final user = auth.loginWithGithub();
                       if (user != null) {
                         ref.read(goRouterNotifierProvider).isLoggedIn = true;
-                        GoRouter.of(context).push('/');
+                        GoRouter.of(context).pushReplacement('/');
                       }
                     },
                     child: Container(
@@ -218,7 +218,7 @@ class _LoginState extends ConsumerState<Login> {
                       final user = auth.loginwithGoogle();
                       if (user != null) {
                         ref.read(goRouterNotifierProvider).isLoggedIn = true;
-                        GoRouter.of(context).push('/');
+                        GoRouter.of(context).pushReplacement('/');
                       }
                     },
                     child: Container(
