@@ -25,7 +25,7 @@ class AuthRepository {
     }
   }
 
-  Future<UserCredential?> loginwithGoogle(String email, String password) async {
+  Future<UserCredential?> loginwithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       final GoogleSignInAuthentication? googleAuth =
@@ -41,7 +41,7 @@ class AuthRepository {
     }
   }
 
-  Future<UserCredential?> loginWithGithub(String email, String password) async {
+  Future<UserCredential?> loginWithGithub() async {
     try {
       GithubAuthProvider githubProvider = GithubAuthProvider();
 

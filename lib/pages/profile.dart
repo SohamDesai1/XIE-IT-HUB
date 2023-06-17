@@ -1,6 +1,7 @@
 import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../widgets/bottom_nav_bar.dart';
 
@@ -23,6 +24,7 @@ class _ProfileState extends ConsumerState<Profile> {
           ElevatedButton(
               onPressed: () {
                 ref.read(goRouterNotifierProvider).isLoggedIn == false;
+                GoRouter.of(context).push('/login');
               },
               child: const Text("Log Out"))
         ],

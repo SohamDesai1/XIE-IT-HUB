@@ -2,9 +2,10 @@
 
 import 'package:college_manager/providers/firebase_auth.dart';
 import 'package:college_manager/routes/go_router_notifier.dart';
-import 'package:college_manager/routes/go_router_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ionicons/ionicons.dart';
 
 class Login extends ConsumerStatefulWidget {
   const Login({super.key});
@@ -17,6 +18,8 @@ class _LoginState extends ConsumerState<Login> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool passwordVisible = true;
+
   @override
   Widget build(BuildContext context) {
     final auth = ref.watch(authRepositoryProvider);
@@ -24,11 +27,11 @@ class _LoginState extends ConsumerState<Login> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 70.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: Column(
             children: [
               SizedBox(
-                width: 300,
+                width: 150,
                 child: Image.asset("assets/images/student.png"),
               ),
               const SizedBox(
@@ -91,6 +94,7 @@ class _LoginState extends ConsumerState<Login> {
                         width: 350,
                         child: TextFormField(
                           controller: password,
+                          obscureText: passwordVisible,
                           decoration: InputDecoration(
                             labelText: 'Password',
                             border: OutlineInputBorder(
@@ -99,6 +103,18 @@ class _LoginState extends ConsumerState<Login> {
                               ),
                               borderRadius: BorderRadius.circular(50.0),
                             ),
+                            suffixIcon: IconButton(
+                              icon: Icon(passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    passwordVisible = !passwordVisible;
+                                  },
+                                );
+                              },
+                            ),
                           ),
                           keyboardType: TextInputType.visiblePassword,
                         ),
@@ -106,33 +122,138 @@ class _LoginState extends ConsumerState<Login> {
                       const SizedBox(
                         height: 20,
                       ),
+                      const Text("Forgot Password?"),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         width: 350,
-                        height: 50,
+                        height: 60,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        child: ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                final user = auth.loginWithEmailAndPassword(
-                                    email.text, password.text);
-                                if (user != null) {
-                                  ref
-                                      .read(goRouterNotifierProvider)
-                                      .isLoggedIn = true;
-                                  ref.read(goRouterProvider).go('/');
-                                }
+                            borderRadius: BorderRadius.circular(50.0),
+                            color: const Color.fromARGB(255, 2, 101, 255)),
+                        child: TextButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              final user = auth.loginWithEmailAndPassword(
+                                  email.text, password.text);
+                              if (user != null) {
+                                ref.read(goRouterNotifierProvider).isLoggedIn =
+                                    true;
+                                GoRouter.of(context).push('/');
                               }
-                            },
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(fontSize: 16),
-                            )),
-                      )
+                            }
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 40,
+              ),
+              const Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      indent: 30,
+                      thickness: 1,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text("Or Login with"),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: Divider(
+                      thickness: 1,
+                      endIndent: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      final user = auth.loginWithGithub();
+                      if (user != null) {
+                        ref.read(goRouterNotifierProvider).isLoggedIn = true;
+                        GoRouter.of(context).push('/');
+                      }
+                    },
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(width: 0.3),
+                        color: Colors.grey[200],
+                      ),
+                      child: const Center(
+                        child: Icon(Ionicons.logo_github),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      final user = auth.loginwithGoogle();
+                      if (user != null) {
+                        ref.read(goRouterNotifierProvider).isLoggedIn = true;
+                        GoRouter.of(context).push('/');
+                      }
+                    },
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(width: 0.3),
+                        color: Colors.grey[200],
+                      ),
+                      child: const Center(
+                        child: Icon(Ionicons.logo_google),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don't have an account?"),
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push('/register');
+                    },
+                    child: const Text(
+                      " Register",
+                      style: TextStyle(color: Color.fromARGB(255, 2, 101, 255)),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
