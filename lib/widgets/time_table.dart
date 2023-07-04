@@ -22,11 +22,43 @@ class _TimeTableState extends State<TimeTable> {
   var currLec;
   var isEvening = DateTime.now().hour;
   var hour = DateTime.now().hour;
-  var monday = ['GIT', 'WT', 'DMBI', 'AI&DS', 'BI-LAB'];
-  var tuesday = ['WEBX', 'DMBI', 'Mini Project', 'Mini Project', 'MAD-LAB'];
-  var wednesday = ['AI&DS', 'WEBX', 'WT', 'GIT', 'SENSOR-LAB'];
-  var thursday = ['GIT', 'DMBI', 'AI&DS', 'WT', 'DS-LAB'];
-  var friday = ['WEB-LAB', 'WEBX', 'VAC', 'MENTORY', 'TPO'];
+  var monday = [
+    'AI & DS -II',
+    'IOE',
+    'STQA',
+    'TPO',
+    'PROJECT',
+    'PROJECT',
+    'HONOURS'
+  ];
+  var tuesday = [
+    'STQA',
+    'MANET',
+    'ILOC',
+    'IOE',
+    'PROJECT',
+    'PROJECT',
+    'HONOURS'
+  ];
+  var wednesday = [
+    'IOE',
+    'STQA',
+    'ILOC',
+    'AI & DS -II',
+    'LAB',
+    'LAB',
+    'HONOURS'
+  ];
+  var thursday = ['LAB', 'LAB', 'LAB', 'LAB', 'LAB', 'LAB'];
+  var friday = [
+    'MANET',
+    'ILOC',
+    'MANET',
+    'AI & DS -II',
+    'PROJECT',
+    'PROJECT',
+    'PROJECT'
+  ];
   var weekend = [
     'CHUTTI HAI!!',
     'CHUTTI HAI!!',
@@ -98,7 +130,7 @@ class _TimeTableState extends State<TimeTable> {
   Widget build(BuildContext context) {
     return Container(
       width: 370,
-      height: 250,
+      height: 282,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 3),
         borderRadius: BorderRadius.circular(20),
@@ -106,7 +138,7 @@ class _TimeTableState extends State<TimeTable> {
       ),
       child: Column(
         children: [
-          isEvening > 16
+          isEvening > 16 || isEvening < 8
               ? Container(
                   alignment: Alignment.topCenter,
                   child: Text(
@@ -157,11 +189,14 @@ class _TimeTableState extends State<TimeTable> {
             endIndent: 50,
             indent: 50,
           ),
-          Container(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Current Lecture:\n$currLec",
-              style: TextStyle(fontSize: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Current Lecture:\n$currLec",
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           )
         ],
