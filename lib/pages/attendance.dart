@@ -4,9 +4,9 @@ import 'package:college_manager/models/attendance.dart';
 import 'package:college_manager/widgets/att_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../widgets/bottom_nav_bar.dart';
 
 void main() async {
@@ -37,6 +37,14 @@ class _AttendancePageState extends State<AttendancePage> {
   late int attended;
   late int key;
   late Box<Attendance> attBox;
+  double totalPercentage = 0;
+  int att = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getAtt();
+  }
 
   void calculate(int bunked, int total, String subject) async {
     setState(() {
@@ -112,7 +120,7 @@ class _AttendancePageState extends State<AttendancePage> {
         return Dialog(
           child: Container(
             padding: EdgeInsets.all(20),
-            height: 320,
+            height: 260,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -121,18 +129,33 @@ class _AttendancePageState extends State<AttendancePage> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
-                TextField(
-                  controller: bunked,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: "Bunked Lectures",
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 242,
+                      child: TextField(
+                        controller: bunked,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: "Bunked Lectures",
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(50.0),
+                          ),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(50.0),
                     ),
-                  ),
+                    IconButton(
+                        onPressed: () {
+                          int newBunkedValue = int.parse(bunked.text) + 1;
+                          bunked.text = newBunkedValue.toString();
+                          int newtotalValue = int.parse(total.text) + 1;
+                          total.text = newtotalValue.toString();
+                        },
+                        icon: Icon(Icons.add))
+                  ],
                 ),
                 SizedBox(height: 10),
                 TextField(
@@ -156,6 +179,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       int.parse(total.text),
                       subject,
                     );
+                    getAtt();
                     // printBoxContents();
                     Navigator.pop(context);
                   },
@@ -169,47 +193,101 @@ class _AttendancePageState extends State<AttendancePage> {
     );
   }
 
+  void getAtt() async {
+    attBox = await Hive.openBox('attendance');
+
+    double percent = 0;
+
+    for (final attendance in attBox.values) {
+      percent += attendance.percentage;
+      att++;
+      debugPrint(attendance.percentage.toString());
+    }
+    debugPrint(percent.toString());
+    debugPrint(att.toString());
+    setState(() {
+      totalPercentage = percent / att;
+    });
+    setState(() {
+      att = 0;
+    });
+    debugPrint(totalPercentage.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Attendance"),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          String subject = subjects[index];
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                String subject = subjects[index];
 
-          return FutureBuilder(
-            future: Hive.openBox<Attendance>('attendance'),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                var attBox = snapshot.data!;
-                var attendance = attBox.values.firstWhere(
-                    (att) => att.subj == subject,
-                    orElse: () => Attendance.zeroAttendance(subject));
+                return FutureBuilder(
+                  future: Hive.openBox<Attendance>('attendance'),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      var attBox = snapshot.data!;
+                      var attendance = attBox.values.firstWhere(
+                          (att) => att.subj == subject,
+                          orElse: () => Attendance.zeroAttendance(subject));
 
-                return Column(
-                  children: [
-                    AttCard(
-                      function: () => popoup(subject),
-                      percentage: attendance.percentage,
-                      subject: attendance.subj,
-                      totalLecs: attendance.totalLecs,
-                      attended: attendance.attended,
-                      bunked: attendance.bunked,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    )
-                  ],
+                      return Column(
+                        children: [
+                          AttCard(
+                            function: () => popoup(subject),
+                            percentage: attendance.percentage,
+                            subject: attendance.subj,
+                            totalLecs: attendance.totalLecs,
+                            attended: attendance.attended,
+                            bunked: attendance.bunked,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      );
+                    } else {
+                      return CircularProgressIndicator(); // Show a loading indicator while opening the box
+                    }
+                  },
                 );
-              } else {
-                return CircularProgressIndicator(); // Show a loading indicator while opening the box
-              }
-            },
-          );
-        },
-        itemCount: subjects.length,
+              },
+              itemCount: subjects.length,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Total Attendance:",
+                  style: GoogleFonts.acme(
+                    fontSize: 24,
+                  ),
+                ),
+                totalPercentage < 75
+                    ? Text(
+                        totalPercentage.toString(),
+                        style:
+                            GoogleFonts.acme(fontSize: 26, color: Colors.red),
+                      )
+                    : Text(
+                        totalPercentage.toString(),
+                        style:
+                            GoogleFonts.acme(fontSize: 26, color: Colors.green),
+                      )
+              ],
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(),
     );
