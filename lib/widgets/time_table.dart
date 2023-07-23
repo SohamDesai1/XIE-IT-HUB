@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:college_manager/utils/timeTable.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -22,49 +23,6 @@ class _TimeTableState extends State<TimeTable> {
   var currLec;
   var isEvening = DateTime.now().hour;
   var hour = DateTime.now().hour;
-  var monday = [
-    'AI & DS -II',
-    'IOE',
-    'STQA',
-    'TPO',
-    'PROJECT',
-    'PROJECT',
-    'HONOURS'
-  ];
-  var tuesday = [
-    'STQA',
-    'MANET',
-    'ILOC',
-    'IOE',
-    'PROJECT',
-    'PROJECT',
-    'HONOURS'
-  ];
-  var wednesday = [
-    'IOE',
-    'STQA',
-    'ILOC',
-    'AI & DS -II',
-    'LAB',
-    'LAB',
-    'HONOURS'
-  ];
-  var thursday = ['LAB', 'LAB', 'LAB', 'LAB', 'LAB', 'LAB'];
-  var friday = [
-    'MANET',
-    'ILOC',
-    'MANET',
-    'AI & DS -II',
-    'PROJECT',
-    'PROJECT',
-    'PROJECT'
-  ];
-  var weekend = [
-    'CHUTTI HAI!!',
-    'CHUTTI HAI!!',
-    'CHUTTI HAI!!',
-    'CHUTTI HAI!!',
-  ];
 
   @override
   void initState() {
@@ -116,13 +74,22 @@ class _TimeTableState extends State<TimeTable> {
       currLec = day[3];
     }
     if ((DateTime.now().hour == 13 && DateTime.now().minute >= 30) ||
-        (DateTime.now().hour == 15 && DateTime.now().minute < 30)) {
+        (DateTime.now().hour == 14 && DateTime.now().minute < 30)) {
       currLec = day[4];
+    }
+    if ((DateTime.now().hour == 14 && DateTime.now().minute >= 30) ||
+        (DateTime.now().hour == 15 && DateTime.now().minute < 30)) {
+      currLec = day[5];
+    }
+    if ((DateTime.now().hour == 15 && DateTime.now().minute >= 30) ||
+        (DateTime.now().hour == 14 && DateTime.now().minute < 30)) {
+      currLec = day[6];
     }
     if (DateTime.now().hour > 15 && DateTime.now().minute >= 30) {
       currLec = "Din Khatam!!";
-    } else {
-      currLec = "No Lectures";
+    }
+    if (DateTime.now().hour > 16) {
+      currLec = "Din Khatam!!";
     }
   }
 
@@ -193,9 +160,17 @@ class _TimeTableState extends State<TimeTable> {
             padding: const EdgeInsets.only(left: 8.0),
             child: Container(
               alignment: Alignment.centerLeft,
-              child: Text(
-                "Current Lecture:\n$currLec",
-                style: TextStyle(fontSize: 20),
+              child: Row(
+                children: [
+                  Text(
+                    "Current Lecture:\n$currLec",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text("(Click for expanded view)")
+                ],
               ),
             ),
           )
