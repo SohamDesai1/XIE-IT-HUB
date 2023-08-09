@@ -1,3 +1,4 @@
+import 'package:college_manager/pages/attendance.dart';
 import 'package:college_manager/widgets/bottom_nav_bar.dart';
 import 'package:college_manager/widgets/time_table.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,16 @@ class _HomePageState extends State<HomePage> {
               ),
               const TimeTable()
             ],
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextButton(
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AttendancePage())),
+              child: const Text("Attendance manager"))
         ],
       ),
     );

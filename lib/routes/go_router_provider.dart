@@ -2,7 +2,7 @@ import 'package:college_manager/pages/attendance.dart';
 import 'package:college_manager/pages/home_page.dart';
 import 'package:college_manager/pages/login.dart';
 import 'package:college_manager/pages/profile.dart';
-import 'package:college_manager/pages/register.dart';
+// import 'package:college_manager/pages/register.dart';
 import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,11 +23,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: "Home",
         builder: (context, state) => HomePage(key: state.pageKey),
       ),
-      GoRoute(
-        path: '/attendance',
-        name: "Attendance",
-        builder: (context, state) => Attendance(key: state.pageKey),
-      ),
+      // GoRoute(
+      //   path: '/attendance',
+      //   name: "Attendance",
+      //   builder: (context, state) => Attendance(key: state.pageKey),
+      // ),
       GoRoute(
         path: '/profile',
         name: "Profile",
@@ -38,11 +38,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: "Login",
         builder: (context, state) => Login(key: state.pageKey),
       ),
-      GoRoute(
-        path: '/register',
-        name: "Register",
-        builder: (context, state) => Register(key: state.pageKey),
-      ),
+      // GoRoute(
+      //   path: '/register',
+      //   name: "Register",
+      //   builder: (context, state) => Register(key: state.pageKey),
+      // ),
       ShellRoute(
         navigatorKey: _shell,
         builder: (context, state, child) => HomePage(key: state.pageKey),

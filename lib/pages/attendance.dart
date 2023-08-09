@@ -11,10 +11,10 @@ import '../widgets/bottom_nav_bar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final dir = await getApplicationDocumentsDirectory();
-  Hive.init(dir.path);
-  Hive.initFlutter('hive_db');
-  Hive.registerAdapter(AttendanceAdapter());
+  // final dir = await getApplicationDocumentsDirectory();
+  // Hive.init(dir.path);
+  // Hive.initFlutter('hive_db');
+  // Hive.registerAdapter(AttendanceAdapter());
   // Hive.openBox("attendance");
   runApp(ProviderScope(
     child: const MaterialApp(
