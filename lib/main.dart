@@ -1,4 +1,3 @@
-import 'package:college_manager/pages/attendance.dart';
 import 'package:college_manager/pages/home_page.dart';
 // import 'package:college_manager/routes/go_router_provider.dart';
 // import 'package:firebase_core/firebase_core.dart';

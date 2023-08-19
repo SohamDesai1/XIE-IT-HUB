@@ -1,5 +1,4 @@
 import 'package:college_manager/pages/attendance.dart';
-import 'package:college_manager/widgets/bottom_nav_bar.dart';
 import 'package:college_manager/widgets/time_table.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,7 @@ class _HomePageState extends State<HomePage> {
         actions: const [
           Center(
             child: Text(
-              "Soham Desai",
+              "XIE Student",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
@@ -35,12 +34,12 @@ class _HomePageState extends State<HomePage> {
             child: CircleAvatar(
               radius: 25,
               backgroundColor: Colors.amber,
-              child: Text("S"),
+              child: Text("X"),
             ),
           )
         ],
       ),
-      bottomNavigationBar: const BottomNavBar(),
+      // bottomNavigationBar: const BottomNavBar(),
       body: Column(
         children: [
           Stack(
@@ -61,7 +60,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 20,
           ),
-          TextButton(
+          ElevatedButton(
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(

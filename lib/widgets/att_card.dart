@@ -21,7 +21,7 @@ class AttCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width / 1.1,
-      height: 100,
+      height: MediaQuery.of(context).size.height / 8.5,
       decoration: const BoxDecoration(
           color: Colors.amber,
           borderRadius: BorderRadius.all(Radius.circular(10))),

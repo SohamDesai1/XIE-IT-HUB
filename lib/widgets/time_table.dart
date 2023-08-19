@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables,prefer_const_literals_to_create_immutables
 
+import 'package:college_manager/widgets/expanded_tt.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:college_manager/utils/timeTable.dart';
@@ -95,86 +96,96 @@ class _TimeTableState extends State<TimeTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 370,
-      height: 282,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 3),
-        borderRadius: BorderRadius.circular(20),
-        color: Color.fromARGB(255, 255, 255, 39),
-      ),
-      child: Column(
-        children: [
-          isEvening > 16 || isEvening < 8
-              ? Container(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    "Tommorow's Time Table",
-                    style: TextStyle(fontSize: 20),
+    return InkWell(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ExpandedTT())),
+      child: Container(
+        width: MediaQuery.of(context).size.width / 1.1,
+        height: MediaQuery.of(context).size.height / 3.1,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 3),
+          borderRadius: BorderRadius.circular(20),
+          color: Color.fromARGB(255, 255, 255, 39),
+        ),
+        child: Column(
+          children: [
+            isEvening > 16 || isEvening < 8
+                ? Container(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      "Tommorow's Time Table",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  )
+                : Container(
+                    alignment: Alignment.topCenter,
+                    child: Text("Today's Time Table",
+                        style: TextStyle(fontSize: 20)),
                   ),
-                )
-              : Container(
-                  alignment: Alignment.topCenter,
-                  child: Text("Today's Time Table",
-                      style: TextStyle(fontSize: 20)),
-                ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              Expanded(
-                  child: Text(
-                "${DateFormat.EEEE().format(DateTime.now())}\n${DateFormat.MMMMd().format(DateTime.now())}",
-                style: TextStyle(fontSize: 30),
-              )),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        left: 50,
-                      ),
-                      child: Text(
-                        day[index],
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    );
-                  },
-                  itemCount: day.length,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Divider(
-            color: Colors.black,
-            thickness: 2,
-            endIndent: 50,
-            indent: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Container(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  Text(
-                    "Current Lecture:\n$currLec",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Text("(Click for expanded view)")
-                ],
-              ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 90,
             ),
-          )
-        ],
+            Row(
+              children: [
+                Expanded(
+                    child: isEvening > 16 || isEvening < 8
+                        ? Text(
+                            "${DateFormat.EEEE().format(DateTime.now().add(Duration(days: 1)))}\n${DateFormat.MMMMd().format(DateTime.now().add(Duration(days: 1)))}",
+                            style: TextStyle(fontSize: 30),
+                          )
+                        : Text(
+                            "${DateFormat.EEEE().format(DateTime.now())}\n${DateFormat.MMMMd().format(DateTime.now())}",
+                            style: TextStyle(fontSize: 30),
+                          )),
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width / 10,
+                        ),
+                        child: Text(
+                          day[index],
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      );
+                    },
+                    itemCount: day.length,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 50,
+            ),
+            Divider(
+              color: Colors.black,
+              thickness: 2,
+              endIndent: 50,
+              indent: 50,
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.only(left: MediaQuery.of(context).size.width / 40),
+              child: Container(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text(
+                      "Current Lecture:\n$currLec",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 20,
+                    ),
+                    Text("(Click for expanded view)")
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
