@@ -4,13 +4,7 @@ import 'package:college_manager/widgets/expanded_tt.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:college_manager/utils/timeTable.dart';
-
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: TimeTable(),
-  ));
-}
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class TimeTable extends StatefulWidget {
   const TimeTable({super.key});
@@ -100,8 +94,8 @@ class _TimeTableState extends State<TimeTable> {
       onTap: () => Navigator.push(
           context, MaterialPageRoute(builder: (context) => ExpandedTT())),
       child: Container(
-        width: MediaQuery.of(context).size.width / 1.1,
-        height: MediaQuery.of(context).size.height / 3.1,
+        width: 90.w,
+        height: 35.h,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: 3),
           borderRadius: BorderRadius.circular(20),

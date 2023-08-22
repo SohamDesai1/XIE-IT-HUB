@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 import 'models/attendance.dart';
@@ -21,7 +22,7 @@ void main() async {
     if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
     return stack;
   };
-  runApp(const ProviderScope(child: MaterialApp(home: MyApp())));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerStatefulWidget {
@@ -34,6 +35,12 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const HomePage();
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return const MaterialApp(
+          home: HomePage(),
+        );
+      },
+    );
   }
 }

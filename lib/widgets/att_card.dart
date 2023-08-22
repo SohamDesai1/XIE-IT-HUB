@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AttCard extends StatelessWidget {
   final String subject;
@@ -20,8 +21,8 @@ class AttCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 1.1,
-      height: MediaQuery.of(context).size.height / 8.5,
+      width: 90.w,
+      height: 12.h,
       decoration: const BoxDecoration(
           color: Colors.amber,
           borderRadius: BorderRadius.all(Radius.circular(10))),
