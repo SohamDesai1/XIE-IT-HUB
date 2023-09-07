@@ -46,12 +46,23 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           builder: (context, state) => Register(key: state.pageKey),
           routes: [
             GoRoute(
-              path: 'register2',
-              name: "Register2",
-              builder: (context, state) => Register2(
-                key: state.pageKey,
-              ),
-            ),
+                path: 'register2/:email:/name/:year/:id/:rollNo',
+                name: "Register2",
+                builder: (context, state) {
+                  final email = state.pathParameters['email']!;
+                  final name = state.pathParameters['name']!;
+                  final year = state.pathParameters['year']!;
+                  final id = state.pathParameters['id']!;
+                  final rollNo = state.pathParameters['rollNo']!;
+                  return Register2(
+                    email,
+                    name,
+                    year,
+                    int.parse(id),
+                    int.parse(rollNo),
+                    key: state.pageKey,
+                  );
+                }),
           ]),
       ShellRoute(
         navigatorKey: _shell,

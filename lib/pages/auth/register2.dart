@@ -1,28 +1,35 @@
+import 'package:college_manager/apis/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import '../../widgets/text_fields.dart';
 
-void main() {
-  runApp(Sizer(
-    builder: (context, orientation, deviceType) {
-      return const MaterialApp(
-        home: ProviderScope(child: Register2()),
-      );
-    },
-  ));
-}
+// void main() {
+//   runApp(Sizer(
+//     builder: (context, orientation, deviceType) {
+//       return const MaterialApp(
+//         home: ProviderScope(child: Register2()),
+//       );
+//     },
+//   ));
+// }
 
 class Register2 extends ConsumerStatefulWidget {
-  const Register2({super.key});
+  final String email;
+  final String name;
+  final String year;
+  final int id;
+  final int rollNo;
+  const Register2(this.email, this.name, this.year, this.id, this.rollNo,
+      {super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _Register2State();
 }
 
 class _Register2State extends ConsumerState<Register2> {
-  final GlobalKey _key = GlobalKey();
+  final _key = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _conpassword = TextEditingController();
   bool passwordVisible = true;
@@ -109,7 +116,15 @@ class _Register2State extends ConsumerState<Register2> {
                       height: 2.9.h,
                     ),
                     GestureDetector(
-                      onTap: () => GoRouter.of(context).push('/'),
+                      onTap: () {
+                        final isValid = _key.currentState?.validate();
+                        if (isValid != null && isValid) {
+                          SignUp.signupWithEmail(widget.email, _password.text);
+                          SignUp.saveStudent(widget.id, widget.name,
+                              widget.email, widget.year, widget.rollNo);
+                          GoRouter.of(context).push('/');
+                        }
+                      },
                       child: Container(
                         width: 90.w,
                         height: 6.h,

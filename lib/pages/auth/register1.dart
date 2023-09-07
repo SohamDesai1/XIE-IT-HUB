@@ -171,7 +171,13 @@ class _RegisterState extends ConsumerState<Register> {
                                 );
                               });
                         } else {
-                          GoRouter.of(context).push('/register/register2');
+                          GoRouter.of(context).push('/register2', extra: {
+                            'email': _email.text,
+                            'name': _name.text,
+                            'year': year,
+                            'id': int.parse(_id.text),
+                            'rollNo': int.parse(_rollNo.text)
+                          });
                         }
                       },
                       child: Container(
