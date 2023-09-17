@@ -8,13 +8,13 @@ var monday = [
   'PROJECT',
   'HONOURS'
 ];
-var tuesday = ['STQA', 'MANET', 'ILOC', 'IOE', 'PROJECT', 'PROJECT', 'HONOURS'];
-var wednesday = ['IOE', 'STQA', 'ILOC', 'AI & DS -II', 'LAB', 'LAB', 'HONOURS'];
+var tuesday = ['STQA', 'IRS', 'MIS', 'IOE', 'PROJECT', 'PROJECT', 'HONOURS'];
+var wednesday = ['IOE', 'STQA', 'MIS', 'AI & DS -II', 'LAB', 'LAB', 'HONOURS'];
 var thursday = ['LAB', 'LAB', 'LAB', 'LAB', 'LAB', 'LAB', 'LAB'];
 var friday = [
-  'MANET',
-  'ILOC',
-  'MANET',
+  'IRS',
+  'MIS',
+  'IRS',
   'AI & DS -II',
   'PROJECT',
   'PROJECT',
