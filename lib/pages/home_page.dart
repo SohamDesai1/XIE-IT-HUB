@@ -310,13 +310,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                         SizedBox(
                           width: 4.5.w,
                         ),
-                        GestureDetector(
-                          onTap: () => GoRouter.of(context).push('/results'),
-                          child: Tile(
-                              color: const Color(0xFFFEBBC7),
-                              image: "assets/images/tiles/res.png",
-                              name: tiles[5]),
-                        )
+                        Tile(
+                            color: const Color(0xFFFEBBC7),
+                            image: "assets/images/tiles/res.png",
+                            name: tiles[5])
                       ],
                     ),
                     SizedBox(

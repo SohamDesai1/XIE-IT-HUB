@@ -1,14 +1,18 @@
+import 'package:college_manager/pages/achievements.dart';
 import 'package:college_manager/pages/attendance.dart';
+import 'package:college_manager/pages/calendar.dart';
 import 'package:college_manager/pages/home_page.dart';
 import 'package:college_manager/pages/auth/login.dart';
+import 'package:college_manager/pages/notes.dart';
 import 'package:college_manager/pages/profile.dart';
+import 'package:college_manager/pages/auth/register1.dart';
 import 'package:college_manager/pages/auth/register2.dart';
+import 'package:college_manager/pages/subjects.dart';
+import 'package:college_manager/pages/syllabus.dart';
 import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import '../pages/auth/register1.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: 'shell');
@@ -20,21 +24,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: notifier,
     initialLocation: '/',
     routes: [
-      GoRoute(
-        path: '/home',
-        name: "Home",
-        builder: (context, state) => HomePage(key: state.pageKey),
-      ),
-      GoRoute(
-        path: '/attendance',
-        name: "Attendance",
-        builder: (context, state) => AttendancePage(key: state.pageKey),
-      ),
-      GoRoute(
-        path: '/profile',
-        name: "Profile",
-        builder: (context, state) => Profile(key: state.pageKey),
-      ),
       GoRoute(
         path: '/login',
         name: "Login",
@@ -64,6 +53,46 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   );
                 }),
           ]),
+      GoRoute(
+        path: '/home',
+        name: "Home",
+        builder: (context, state) => HomePage(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/attendance',
+        name: "Attendance",
+        builder: (context, state) => AttendancePage(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/profile',
+        name: "Profile",
+        builder: (context, state) => Profile(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/achievements',
+        name: "Achievements",
+        builder: (context, state) => Achievements(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/notes',
+        name: "Notes",
+        builder: (context, state) => Notes(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/calendar',
+        name: "Calendar",
+        builder: (context, state) => Calendar(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/syllabus',
+        name: "Syllabus",
+        builder: (context, state) => Syllabus(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/subjects',
+        name: "Subjects",
+        builder: (context, state) => Subjects(key: state.pageKey),
+      ),
       ShellRoute(
         navigatorKey: _shell,
         builder: (context, state, child) => HomePage(key: state.pageKey),

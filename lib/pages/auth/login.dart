@@ -32,7 +32,7 @@ class _LoginState extends ConsumerState<Login> {
             children: [
               SizedBox(
                 width: 150,
-                child: Image.asset("assets/images/home.png"),
+                child: Image.asset("assets/images/log.png"),
               ),
               const SizedBox(
                 height: 30,
@@ -138,9 +138,14 @@ class _LoginState extends ConsumerState<Login> {
                             //   final user = auth.loginWithEmailAndPassword(
                             //       email.text, password.text);
                             //   if (user != null) {
-                            ref.read(goRouterNotifierProvider).isLoggedIn =
-                                true;
-                            GoRouter.of(context).pushReplacement('/');
+                            // ref.read(goRouterNotifierProvider).isLoggedIn =
+                            //     true;
+                            GoRouter.of(context).go('/home');
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const HomePage(),
+                            //     ));
                             // }
                             // }
                           },
@@ -189,27 +194,6 @@ class _LoginState extends ConsumerState<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      final user = auth.loginWithGithub();
-                      if (user != null) {
-                        ref.read(goRouterNotifierProvider).isLoggedIn = true;
-                        GoRouter.of(context).pushReplacement('/');
-                      }
-                    },
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(width: 0.3),
-                        color: Colors.grey[200],
-                      ),
-                      child: const Center(
-                        child: Icon(Ionicons.logo_github),
-                      ),
-                    ),
-                  ),
                   const SizedBox(
                     width: 10,
                   ),

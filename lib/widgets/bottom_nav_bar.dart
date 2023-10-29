@@ -1,5 +1,5 @@
 import 'package:college_manager/providers/navigation.dart';
-import 'package:circle_nav_bar/circle_nav_bar.dart';
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,13 +16,16 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
     ref.read(navigationProvider.notifier).setIndex(index);
     switch (index) {
       case 0:
-        context.go('/');
+        GoRouter.of(context).go('/home');
         break;
       case 1:
-        context.go('/attendance');
+        GoRouter.of(context).go('/achievements');
         break;
       case 2:
-        context.go('/profile');
+        GoRouter.of(context).go('/notes');
+        break;
+      case 3:
+        GoRouter.of(context).go('/profile');
         break;
       default:
     }
@@ -31,53 +34,26 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final selectedindex = ref.watch(navigationProvider);
-    return CircleNavBar(
-      activeIndex: selectedindex,
-      activeIcons: const [
-        Icon(Icons.home_filled),
-        Icon(Icons.calendar_today),
-        Icon(Icons.person_outlined),
+    return FloatingNavbar(
+      backgroundColor: Colors.white,
+      unselectedItemColor: const Color.fromARGB(255, 0, 0, 128),
+      selectedItemColor: Colors.blue,
+      onTap: (int val) => _itemTapped(val),
+      currentIndex: selectedindex,
+      items: [
+        FloatingNavbarItem(
+          icon: Icons.home,
+        ),
+        FloatingNavbarItem(
+          icon: Icons.emoji_events_outlined,
+        ),
+        FloatingNavbarItem(
+          icon: Icons.file_copy_outlined,
+        ),
+        FloatingNavbarItem(
+          icon: Icons.person_outline_outlined,
+        ),
       ],
-      inactiveIcons: const [
-        Text(
-          "Home",
-          style: TextStyle(
-              fontFamily: "Sans-Serif",
-              fontWeight: FontWeight.w600,
-              fontSize: 16),
-        ),
-        Text(
-          "Attendance",
-          style: TextStyle(
-              fontFamily: "Sans-Serif",
-              fontWeight: FontWeight.w600,
-              fontSize: 16),
-        ),
-        Text(
-          "Profile",
-          style: TextStyle(
-              fontFamily: "Sans-Serif",
-              fontWeight: FontWeight.w600,
-              fontSize: 16),
-        ),
-        // Icon(Ionicons.calendar_clear)
-      ],
-      height: 60,
-      circleWidth: 60,
-      color: Colors.blueAccent,
-      onTap: (index) => _itemTapped(index),
-      shadowColor: Colors.deepPurple,
-      circleShadowColor: Colors.deepPurple,
-      elevation: 5,
-      gradient: const LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [
-          Color.fromARGB(255, 0, 147, 233),
-          Color.fromARGB(255, 128, 208, 199)
-        ],
-      ),
-      tabCurve: Curves.bounceInOut,
     );
   }
 }
