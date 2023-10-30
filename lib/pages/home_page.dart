@@ -1,10 +1,12 @@
-import 'package:college_manager/widgets/tt_card.dart';
+import 'package:college_manager/widgets/bottom_nav_bar.dart';
+import 'package:college_manager/widgets/tiles.dart';
+import 'package:go_router/go_router.dart';
+import '../widgets/tt_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-
 import '../utils/timeTable.dart';
 
 void main() {
@@ -36,9 +38,26 @@ class _HomePageState extends ConsumerState<HomePage> {
     CarouselItem(image: const AssetImage('assets/images/log.png')),
     CarouselItem(image: const AssetImage('assets/images/log.png'))
   ];
-  List<String> tt = [];
+  List<String> tt = [
+    "Holiday",
+    "Holiday",
+    "Holiday",
+    "Holiday",
+    "Holiday",
+    "Holiday",
+    "Holiday",
+  ];
   late List<Map<String, dynamic>> lectures;
-
+  List<String> tiles = [
+    "Calendar",
+    "Subjects",
+    "Syllabus",
+    "Assignments",
+    "Placements",
+    "Results",
+    "Student Committee",
+    "TPO Activities"
+  ];
   @override
   void initState() {
     setLectures();
@@ -122,15 +141,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-              size: 4.2.h,
-            ),
-            color: const Color(0xFF000080),
-            onPressed: () {},
+          title: Padding(
+            padding: EdgeInsets.only(left: 32.w),
+            child: const Text("Dashboard"),
           ),
           actions: [
             Padding(
@@ -142,6 +155,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             )
           ],
         ),
+        bottomNavigationBar: const BottomNavBar(),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,10 +200,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     SizedBox(
-                      height: 6.h, // Define a specific height for the list
+                      height: 1.h,
+                    ),
+                    SizedBox(
+                      height: 8.h,
                       child: DateTime.now().weekday == 6 ||
                               DateTime.now().weekday == 7
-                          ? ListView.builder(
+                          ? const Center(child: Text("No Lectures Today!!"))
+                          : ListView.builder(
                               itemCount: 9,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
@@ -209,8 +227,126 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   ],
                                 );
                               },
-                            )
-                          : const Text("No Lectures Today!!"),
+                            ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.h),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => GoRouter.of(context).push('/calendar'),
+                          child: Tile(
+                              color: const Color(0xFFE82D92),
+                              image: "assets/images/tiles/cal.png",
+                              name: tiles[0]),
+                        ),
+                        SizedBox(
+                          width: 4.5.w,
+                        ),
+                        GestureDetector(
+                          onTap: () => GoRouter.of(context).push('/subjects'),
+                          child: Tile(
+                              color: const Color(0xFFFF5454),
+                              image: "assets/images/tiles/sub.png",
+                              name: tiles[1]),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.h),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () => GoRouter.of(context).push('/syllabus'),
+                          child: Tile(
+                              color: const Color(0xFFFEBBF3),
+                              image: "assets/images/tiles/syl.png",
+                              name: tiles[2]),
+                        ),
+                        SizedBox(
+                          width: 4.5.w,
+                        ),
+                        Tile(
+                            color: const Color(0xFF85D3FF),
+                            image: "assets/images/tiles/ass.png",
+                            name: tiles[3])
+                      ],
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.h),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Tile(
+                            color: const Color(0xFFAA81EE),
+                            image: "assets/images/tiles/place.png",
+                            name: tiles[4]),
+                        SizedBox(
+                          width: 4.5.w,
+                        ),
+                        GestureDetector(
+                          onTap: () => GoRouter.of(context).push('/results'),
+                          child: Tile(
+                              color: const Color(0xFFFEBBC7),
+                              image: "assets/images/tiles/res.png",
+                              name: tiles[5]),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2.h),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Tile(
+                            color: const Color(0xFFDFF978),
+                            image: "assets/images/tiles/stud.png",
+                            name: tiles[6]),
+                        SizedBox(
+                          width: 4.5.w,
+                        ),
+                        Tile(
+                            color: const Color(0xFFF8DAB5),
+                            image: "assets/images/tiles/stud.png",
+                            name: tiles[7])
+                      ],
+                    ),
+                    SizedBox(
+                      height: 3.h,
                     )
                   ],
                 ),
