@@ -7,6 +7,7 @@ import 'package:college_manager/pages/notes.dart';
 import 'package:college_manager/pages/profile.dart';
 import 'package:college_manager/pages/auth/register1.dart';
 import 'package:college_manager/pages/auth/register2.dart';
+import 'package:college_manager/pages/results.dart';
 import 'package:college_manager/pages/subjects.dart';
 import 'package:college_manager/pages/syllabus.dart';
 import 'package:college_manager/routes/go_router_notifier.dart';
@@ -92,6 +93,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: '/subjects',
         name: "Subjects",
         builder: (context, state) => Subjects(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/results',
+        name: "Results",
+        builder: (context, state) => Results(key: state.pageKey),
       ),
       ShellRoute(
         navigatorKey: _shell,

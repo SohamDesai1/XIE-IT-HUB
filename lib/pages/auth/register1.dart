@@ -36,6 +36,7 @@ class _RegisterState extends ConsumerState<Register> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
+        title: const Text("Register"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -141,8 +142,8 @@ class _RegisterState extends ConsumerState<Register> {
                       height: 2.9.h,
                     ),
                     InputField(
-                        er1: "er1",
-                        er2: "er2",
+                        er1: "Roll No is required",
+                        er2: "Roll No is not valid",
                         inputType: TextInputType.number,
                         controller: _rollNo,
                         label: "Roll No"),
