@@ -41,11 +41,11 @@ class _RegisterState extends ConsumerState<Register> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset(
-              "assets/images/log.png",
-              width: 100.w,
-              height: 25.h,
-            ),
+            // Image.asset(
+            //   "assets/images/log.png",
+            //   width: 80.w,
+            //   height: 15.h,
+            // ),
             SizedBox(
               height: 3.3.h,
             ),
@@ -200,29 +200,22 @@ class _RegisterState extends ConsumerState<Register> {
                     SizedBox(
                       height: 1.2.h,
                     ),
-                    const Row(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Already have an account ? ',
-                          style: TextStyle(
-                            color: Color(0xFF797676),
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
+                        const Text("Already have an account?"),
+                        GestureDetector(
+                          onTap: () {
+                            GoRouter.of(context).go('/login');
+                          },
+                          child: const Text(
+                            " Login",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 2, 101, 255)),
                           ),
                         ),
-                        Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Color(0xFF797676),
-                            fontSize: 12,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                            decoration: TextDecoration.underline,
-                          ),
-                        )
                       ],
-                    ),
+                    )
                   ],
                 ),
               ),

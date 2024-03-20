@@ -15,7 +15,7 @@ class Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 43.w,
-      height: 15.6.h,
+      height: 16.1.h,
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(5), topRight: Radius.circular(5)),

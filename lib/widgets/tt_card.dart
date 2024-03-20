@@ -12,7 +12,7 @@ class TTCard extends StatelessWidget {
   final String time;
   final String classRoom;
   final String status;
-  
+
   Color determineColor() {
     if (status == "Ongoing") {
       return Colors.red;
@@ -28,7 +28,7 @@ class TTCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 35.w,
+        width: 36.w,
         height: 8.5.h,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),

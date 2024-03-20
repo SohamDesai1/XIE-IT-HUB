@@ -5,6 +5,7 @@ import 'package:college_manager/services/auth/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:sizer/sizer.dart';
 
 class Login extends ConsumerStatefulWidget {
   const Login({super.key});
@@ -26,29 +27,29 @@ class _LoginState extends ConsumerState<Login> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 30.0),
+          padding: EdgeInsets.only(top: 1.h),
           child: Column(
             children: [
               SizedBox(
-                width: 150,
+                width: 35.w,
                 child: Image.asset("assets/images/log.png"),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 8.w,
               ),
-              const Text(
+              Text(
                 "Login",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 7.w, fontWeight: FontWeight.w600),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: 1.h,
               ),
               Text(
                 "Login to continue to app",
-                style: TextStyle(fontSize: 15, color: Colors.grey[500]),
+                style: TextStyle(fontSize: 4.w, color: Colors.grey[500]),
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 2.h,
               ),
               Center(
                 child: Form(
@@ -56,15 +57,15 @@ class _LoginState extends ConsumerState<Login> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Email",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 15,
+                        style: TextStyle(fontSize: 2.4.h),
                       ),
                       SizedBox(
-                        width: 350,
+                        height: 1.5.h,
+                      ),
+                      SizedBox(
+                        width: 85.w,
                         child: TextFormField(
                           controller: email,
                           decoration: InputDecoration(
@@ -73,24 +74,24 @@ class _LoginState extends ConsumerState<Login> {
                               borderSide: const BorderSide(
                                 width: 1,
                               ),
-                              borderRadius: BorderRadius.circular(50.0),
+                              borderRadius: BorderRadius.circular(5.h),
                             ),
                           ),
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
-                      const SizedBox(
-                        height: 25,
+                      SizedBox(
+                        height: 2.5.h,
                       ),
-                      const Text(
+                      Text(
                         "Password",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 15,
+                        style: TextStyle(fontSize: 2.4.h),
                       ),
                       SizedBox(
-                        width: 350,
+                        height: 1.5.h,
+                      ),
+                      SizedBox(
+                        width: 85.w,
                         child: TextFormField(
                           controller: password,
                           obscureText: passwordVisible,
@@ -100,7 +101,7 @@ class _LoginState extends ConsumerState<Login> {
                               borderSide: const BorderSide(
                                 width: 1,
                               ),
-                              borderRadius: BorderRadius.circular(50.0),
+                              borderRadius: BorderRadius.circular(5.h),
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(passwordVisible
@@ -118,23 +119,23 @@ class _LoginState extends ConsumerState<Login> {
                           keyboardType: TextInputType.visiblePassword,
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 2.2.h,
                       ),
                       const Text("Forgot Password?"),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: 2.2.h,
                       ),
                       Container(
-                        width: 350,
-                        height: 60,
+                        width: 85.w,
+                        height: 7.h,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
+                            borderRadius: BorderRadius.circular(5.h),
                             color: const Color.fromARGB(255, 2, 101, 255)),
                         child: TextButton(
                           onPressed: () {
                             // if (_formKey.currentState!.validate()) {
-                              // final user = auth.signInWithEmail(
+                            // final user = auth.signInWithEmail(
                             //       email.text, password.text);
                             //   if (user != null) {
                             // ref.read(goRouterNotifierProvider).isLoggedIn =
@@ -148,9 +149,10 @@ class _LoginState extends ConsumerState<Login> {
                             // }
                             // }
                           },
-                          child: const Text(
+                          child: Text(
                             "Login",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                            style:
+                                TextStyle(fontSize: 2.h, color: Colors.white),
                           ),
                         ),
                       ),
@@ -158,43 +160,43 @@ class _LoginState extends ConsumerState<Login> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: 4.h,
               ),
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     child: Divider(
-                      indent: 30,
+                      indent: 3.h,
                       thickness: 1,
                       color: Colors.grey,
                     ),
                   ),
                   SizedBox(
-                    width: 12,
+                    width: 3.w,
                   ),
-                  Text("Or Login with"),
+                  const Text("Or Login with"),
                   SizedBox(
-                    width: 12,
+                    width: 3.w,
                   ),
                   Expanded(
                     child: Divider(
                       thickness: 1,
-                      endIndent: 30,
+                      endIndent: 3.h,
                       color: Colors.grey,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 1.2.h,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    width: 10,
+                  SizedBox(
+                    width: 1.h,
                   ),
                   GestureDetector(
                     onTap: () {
@@ -205,10 +207,10 @@ class _LoginState extends ConsumerState<Login> {
                       }
                     },
                     child: Container(
-                      width: 60,
-                      height: 60,
+                      width: 16.w,
+                      height: 7.h,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(2.h),
                         border: Border.all(width: 0.3),
                         color: Colors.grey[200],
                       ),
@@ -219,8 +221,8 @@ class _LoginState extends ConsumerState<Login> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 1.7.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -228,7 +230,7 @@ class _LoginState extends ConsumerState<Login> {
                   const Text("Don't have an account?"),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).push('/register');
+                      GoRouter.of(context).go('/register');
                     },
                     child: const Text(
                       " Register",
