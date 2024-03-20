@@ -20,7 +20,7 @@ class _ProfileState extends ConsumerState<Profile> {
           backgroundColor: const Color(0xC90000FF),
           title: const Center(
             child: Text(
-              "Profile Page",
+              "Profile Page", 
               style: TextStyle(color: Colors.white),
             ),
           ),
