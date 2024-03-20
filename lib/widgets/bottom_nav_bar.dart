@@ -3,6 +3,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sizer/sizer.dart';
 
 class BottomNavBar extends ConsumerStatefulWidget {
   const BottomNavBar({super.key});
@@ -35,7 +36,12 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
   Widget build(BuildContext context) {
     final selectedindex = ref.watch(navigationProvider);
     return FloatingNavbar(
-      backgroundColor: Colors.white,
+      padding: const EdgeInsets.all(0),
+      elevation: 0,
+      margin: const EdgeInsets.all(5),
+      iconSize: 3.3.h,
+      width: 90.w,
+      backgroundColor: Colors.cyan,
       unselectedItemColor: const Color.fromARGB(255, 0, 0, 128),
       selectedItemColor: Colors.blue,
       onTap: (int val) => _itemTapped(val),
