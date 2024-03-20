@@ -1,8 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
-
-import 'package:college_manager/providers/firebase_auth.dart';
-import 'package:college_manager/routes/go_router_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:college_manager/routes/go_router_notifier.dart';
+import 'package:college_manager/services/auth/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
@@ -22,7 +21,7 @@ class _LoginState extends ConsumerState<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = ref.watch(authRepositoryProvider);
+    final auth = ref.watch(loginProvider);
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -135,7 +134,7 @@ class _LoginState extends ConsumerState<Login> {
                         child: TextButton(
                           onPressed: () {
                             // if (_formKey.currentState!.validate()) {
-                            //   final user = auth.loginWithEmailAndPassword(
+                              // final user = auth.signInWithEmail(
                             //       email.text, password.text);
                             //   if (user != null) {
                             // ref.read(goRouterNotifierProvider).isLoggedIn =
@@ -199,7 +198,7 @@ class _LoginState extends ConsumerState<Login> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      final user = auth.loginwithGoogle();
+                      final user = auth.signInWithGoogle();
                       if (user != null) {
                         ref.read(goRouterNotifierProvider).isLoggedIn = true;
                         GoRouter.of(context).pushReplacement('/');

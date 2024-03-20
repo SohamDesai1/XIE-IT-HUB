@@ -1,4 +1,4 @@
-import 'package:college_manager/apis/auth.dart';
+import 'package:college_manager/services/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -36,6 +36,7 @@ class _Register2State extends ConsumerState<Register2> {
 
   @override
   Widget build(BuildContext context) {
+    final signup = ref.watch(signupProvider);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -119,8 +120,8 @@ class _Register2State extends ConsumerState<Register2> {
                       onTap: () {
                         final isValid = _key.currentState?.validate();
                         if (isValid != null && isValid) {
-                          SignUp.signupWithEmail(widget.email, _password.text);
-                          SignUp.saveStudent(widget.id, widget.name,
+                          signup.signupWithEmail(widget.email, _password.text);
+                          signup.saveStudent(widget.id, widget.name,
                               widget.email, widget.year, widget.rollNo);
                           GoRouter.of(context).push('/');
                         }

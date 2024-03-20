@@ -1,12 +1,14 @@
 import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/student.dart';
+final loginProvider = ChangeNotifierProvider((ref) => Login());
 
-class Login {
-  static Future<User?> signInWithGoogle() async {
+class Login extends ChangeNotifier {
+  Future<User?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await GoogleSignIn().signIn();
@@ -27,6 +29,7 @@ class Login {
           return null;
         }
 
+        notifyListeners(); // Notify listeners about the sign-in state change
         return user;
       }
     } catch (error) {
@@ -36,10 +39,11 @@ class Login {
     return null;
   }
 
-  static signInWithEmail(String emailAddress, String password) async {
+  Future<void> signInWithEmail(String emailAddress, String password) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailAddress, password: password);
+      notifyListeners(); // Notify listeners about the sign-in state change
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         log('No user found for that email.');
@@ -48,32 +52,16 @@ class Login {
       }
     }
   }
-}
 
-class SignUp {
-  static signupWithEmail(String emailAddress, String password) async {
+  Future<UserCredential?> loginWithGithub() async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailAddress,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        log('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        log('The account already exists for that email.');
-      }
+      GithubAuthProvider githubProvider = GithubAuthProvider();
+
+      return await FirebaseAuth.instance.signInWithProvider(githubProvider);
     } catch (e) {
-      log(e.toString());
+      debugPrint('Login failed: $e');
+      return null;
     }
   }
-
-  static saveStudent(
-      int xieID, String fullName, String email, String year, int rollNo) {
-    Box<Student> studBox = Hive.openBox('students') as Box<Student>;
-    studBox.add(Student(xieID, fullName, email, year, rollNo));
-    studBox.close();
-  }
+  
 }
-
-class Logout {}
