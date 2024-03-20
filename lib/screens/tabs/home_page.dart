@@ -1,13 +1,13 @@
-import 'package:college_manager/widgets/bottom_nav_bar.dart';
-import 'package:college_manager/widgets/tiles.dart';
+import '/widgets/bottom_nav_bar.dart';
+import '/widgets/tiles.dart';
 import 'package:go_router/go_router.dart';
-import '../widgets/tt_card.dart';
+import '/widgets/tt_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-import '../utils/timeTable.dart';
+import '/utils/timeTable.dart';
 
 void main() {
   runApp(

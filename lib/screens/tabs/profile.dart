@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
+import '/widgets/bottom_nav_bar.dart';
 
-import '../widgets/bottom_nav_bar.dart';
 
 class Profile extends ConsumerStatefulWidget {
   const Profile({super.key});

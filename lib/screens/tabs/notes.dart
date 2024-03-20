@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/bottom_nav_bar.dart';
+import '/widgets/bottom_nav_bar.dart';
 
 class Notes extends StatefulWidget {
   const Notes({super.key});
