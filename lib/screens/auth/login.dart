@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../widgets/text_fields.dart';
+
 class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
@@ -31,7 +33,7 @@ class _LoginState extends ConsumerState<Login> {
           child: Column(
             children: [
               SizedBox(
-                width: 35.w,
+                width: 55.w,
                 child: Image.asset("assets/images/log.png"),
               ),
               SizedBox(
@@ -57,66 +59,34 @@ class _LoginState extends ConsumerState<Login> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Email",
-                        style: TextStyle(fontSize: 2.4.h),
-                      ),
-                      SizedBox(
-                        height: 1.5.h,
-                      ),
-                      SizedBox(
-                        width: 85.w,
-                        child: TextFormField(
+                      InputField(
+                          er1: "Email is required",
+                          er2: "Email is not valid",
+                          reg: RegExp(
+                              r"^[a-zA-Z0-9._%+-]+@student\.xavier\.ac\.in$"),
+                          inputType: TextInputType.emailAddress,
                           controller: email,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(5.h),
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                      ),
+                          label: "Email"),
                       SizedBox(
                         height: 2.5.h,
                       ),
-                      Text(
-                        "Password",
-                        style: TextStyle(fontSize: 2.4.h),
-                      ),
-                      SizedBox(
-                        height: 1.5.h,
-                      ),
-                      SizedBox(
-                        width: 85.w,
-                        child: TextFormField(
-                          controller: password,
-                          obscureText: passwordVisible,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(5.h),
-                            ),
-                            suffixIcon: IconButton(
-                              icon: Icon(passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(
-                                  () {
-                                    passwordVisible = !passwordVisible;
-                                  },
-                                );
+                      InputField(
+                        pass: passwordVisible,
+                        er1: "Password is required",
+                        inputType: TextInputType.visiblePassword,
+                        controller: password,
+                        label: "Password",
+                        sicon: IconButton(
+                          icon: Icon(passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(
+                              () {
+                                passwordVisible = !passwordVisible;
                               },
-                            ),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
+                            );
+                          },
                         ),
                       ),
                       SizedBox(
@@ -126,34 +96,32 @@ class _LoginState extends ConsumerState<Login> {
                       SizedBox(
                         height: 2.2.h,
                       ),
-                      Container(
-                        width: 85.w,
-                        height: 7.h,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.h),
-                            color: const Color.fromARGB(255, 2, 101, 255)),
-                        child: TextButton(
-                          onPressed: () {
-                            // if (_formKey.currentState!.validate()) {
-                            // final user = auth.signInWithEmail(
-                            //       email.text, password.text);
-                            //   if (user != null) {
-                            // ref.read(goRouterNotifierProvider).isLoggedIn =
-                            //     true;
-                            GoRouter.of(context).go('/home');
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => const HomePage(),
-                            //     ));
-                            // }
-                            // }
-                          },
-                          child: Text(
-                            "Login",
-                            style:
-                                TextStyle(fontSize: 2.h, color: Colors.white),
-                          ),
+                      GestureDetector(
+                        onTap: () {
+                          // if (_formKey.currentState!.validate()) {
+                          //   final user =
+                          //       auth.signInWithEmail(email.text, password.text);
+                          //   if (user != null) {
+                          //     ref.read(goRouterNotifierProvider).isLoggedIn =
+                          //         true;
+                          GoRouter.of(context).go('/home');
+                          //   }
+                          // }
+                        },
+                        child: Container(
+                          width: 90.w,
+                          height: 6.h,
+                          color: const Color(0xFF000080),
+                          child: const Center(
+                              child: Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )),
                         ),
                       ),
                     ],
