@@ -172,12 +172,13 @@ class _RegisterState extends ConsumerState<Register> {
                                 );
                               });
                         } else {
-                          GoRouter.of(context).push('/register2', extra: {
+                          GoRouter.of(context)
+                              .pushNamed('Register2', pathParameters: {
                             'email': _email.text,
                             'name': _name.text,
                             'year': year,
-                            'id': int.parse(_id.text),
-                            'rollNo': int.parse(_rollNo.text)
+                            'id': _id.text,
+                            'rollNo': _rollNo.text
                           });
                         }
                       },
