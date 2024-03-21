@@ -1,11 +1,11 @@
-import '../../widgets/timeline.dart';
+import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
+import '/widgets/timeline.dart';
 import '/widgets/bottom_nav_bar.dart';
 import '/widgets/tiles.dart';
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(
@@ -31,10 +31,10 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   List<CarouselItem> items = [
-    CarouselItem(image: const AssetImage('assets/images/log.png')),
-    CarouselItem(image: const AssetImage('assets/images/log.png')),
-    CarouselItem(image: const AssetImage('assets/images/log.png')),
-    CarouselItem(image: const AssetImage('assets/images/log.png'))
+    CarouselItem(image: const AssetImage('assets/images/car.jpeg')),
+    CarouselItem(image: const AssetImage('assets/images/car.jpeg')),
+    CarouselItem(image: const AssetImage('assets/images/car.jpeg')),
+    CarouselItem(image: const AssetImage('assets/images/car.jpeg'))
   ];
   List<String> tiles = [
     "Calendar",
