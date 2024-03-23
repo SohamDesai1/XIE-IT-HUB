@@ -33,6 +33,7 @@ dependencies:
   sizer: ^2.0.15
   stack_trace: ^1.11.0
   syncfusion_flutter_pdfviewer: ^23.1.42
+  tuple: ^2.0.2
   url_launcher: ^6.1.11
 
 dev_dependencies:
