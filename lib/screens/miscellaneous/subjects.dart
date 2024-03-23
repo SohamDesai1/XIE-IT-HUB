@@ -1,56 +1,38 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
+import '../../services/database.dart';
 
-class Subjects extends StatefulWidget {
+class Subjects extends ConsumerStatefulWidget {
   const Subjects({super.key});
 
   @override
-  State<Subjects> createState() => _SubjectsState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SubjectsState();
 }
 
-class _SubjectsState extends State<Subjects> {
-  List<String> subjectNames = [];
-  List<String> labNames = [];
-  var db = FirebaseFirestore.instance;
-
-  Future<List<String>> getSubjects() async {
-    final docRef = db.collection("BE").doc("SEM 7").collection("subjects");
-    QuerySnapshot docs = await docRef.where("type", isEqualTo: "theory").get();
-    for (QueryDocumentSnapshot doc in docs.docs) {
-      subjectNames.add(doc['subject_name']);
-    }
-    log(subjectNames.toString());
-    QuerySnapshot docs1 = await docRef.where("type", isEqualTo: "lab").get();
-    for (QueryDocumentSnapshot doc1 in docs1.docs) {
-      labNames.add(doc1['subject_name']);
-    }
-    return subjectNames;
-  }
-
+class _SubjectsState extends ConsumerState<Subjects> {
   @override
   Widget build(BuildContext context) {
+    final hive = ref.watch(hiveDataProvider);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xC90000FF),
-        title: Center(
-          child: Padding(
-            padding: EdgeInsets.only(right: 10.w),
-            child: const Text(
-              "Subjects",
-              style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          backgroundColor: const Color(0xC90000FF),
+          title: Center(
+            child: Padding(
+              padding: EdgeInsets.only(right: 10.w),
+              child: const Text(
+                "Subjects",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ),
-      ),
-      body: FutureBuilder<List<String>>(
-          future: getSubjects(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              var subjects = snapshot.data;
+        body: hive.when(
+            data: (data) {
+              final subjects = data.item1;
+              final labNames = data.item2;
               return SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     Padding(
@@ -124,7 +106,7 @@ class _SubjectsState extends State<Subjects> {
                                               width: 17.w,
                                               height: 10.h,
                                             )),
-                                            Text(subjects![index]),
+                                            Text(subjects[index]),
                                             SizedBox(
                                               height: 2.85.h,
                                             ),
@@ -204,12 +186,8 @@ class _SubjectsState extends State<Subjects> {
                   ],
                 ),
               );
-            } else if (snapshot.hasError) {
-              return const Center(child: Text("Error fetching Content"));
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          }),
-    );
+            },
+            error: (error, stackTrace) => Text('Error: $error'),
+            loading: () => const Center(child: CircularProgressIndicator())));
   }
 }
