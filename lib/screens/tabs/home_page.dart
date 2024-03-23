@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import '/widgets/timeline.dart';
-import '/widgets/bottom_nav_bar.dart';
 import '/widgets/tiles.dart';
 
 void main() {
@@ -67,7 +66,6 @@ class _HomePageState extends ConsumerState<HomePage> {
             )
           ],
         ),
-        bottomNavigationBar: const BottomNavBar(),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

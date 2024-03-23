@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
-import '/widgets/bottom_nav_bar.dart';
-
 
 class Profile extends ConsumerStatefulWidget {
   const Profile({super.key});
@@ -20,12 +18,11 @@ class _ProfileState extends ConsumerState<Profile> {
           backgroundColor: const Color(0xC90000FF),
           title: const Center(
             child: Text(
-              "Profile Page", 
+              "Profile Page",
               style: TextStyle(color: Colors.white),
             ),
           ),
         ),
-        bottomNavigationBar: const BottomNavBar(),
         body: Column(
           children: [
             Container(

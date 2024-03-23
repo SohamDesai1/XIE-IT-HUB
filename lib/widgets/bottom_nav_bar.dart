@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 
 class BottomNavBar extends ConsumerStatefulWidget {
-  const BottomNavBar({super.key});
+  final Widget child;
+  const BottomNavBar({super.key, required this.child});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _BottomNavBarState();
@@ -17,7 +18,7 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
     ref.read(navigationProvider.notifier).setIndex(index);
     switch (index) {
       case 0:
-        GoRouter.of(context).go('/home');
+        GoRouter.of(context).go('/');
         break;
       case 1:
         GoRouter.of(context).go('/achievements');
@@ -35,31 +36,34 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final selectedindex = ref.watch(navigationProvider);
-    return FloatingNavbar(
-      padding: const EdgeInsets.all(0),
-      elevation: 0,
-      margin: const EdgeInsets.all(5),
-      iconSize: 3.3.h,
-      width: 90.w,
-      backgroundColor: Colors.cyan,
-      unselectedItemColor: const Color.fromARGB(255, 0, 0, 128),
-      selectedItemColor: Colors.blue,
-      onTap: (int val) => _itemTapped(val),
-      currentIndex: selectedindex,
-      items: [
-        FloatingNavbarItem(
-          icon: Icons.home,
-        ),
-        FloatingNavbarItem(
-          icon: Icons.emoji_events_outlined,
-        ),
-        FloatingNavbarItem(
-          icon: Icons.file_copy_outlined,
-        ),
-        FloatingNavbarItem(
-          icon: Icons.person_outline_outlined,
-        ),
-      ],
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: FloatingNavbar(
+        padding: const EdgeInsets.all(0),
+        elevation: 0,
+        margin: const EdgeInsets.all(5),
+        iconSize: 3.3.h,
+        width: 90.w,
+        backgroundColor: Colors.cyan,
+        unselectedItemColor: const Color.fromARGB(255, 0, 0, 128),
+        selectedItemColor: Colors.blue,
+        onTap: (int val) => _itemTapped(val),
+        currentIndex: selectedindex,
+        items: [
+          FloatingNavbarItem(
+            icon: Icons.home,
+          ),
+          FloatingNavbarItem(
+            icon: Icons.emoji_events_outlined,
+          ),
+          FloatingNavbarItem(
+            icon: Icons.file_copy_outlined,
+          ),
+          FloatingNavbarItem(
+            icon: Icons.person_outline_outlined,
+          ),
+        ],
+      ),
     );
   }
 }

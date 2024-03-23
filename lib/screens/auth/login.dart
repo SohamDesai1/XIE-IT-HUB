@@ -102,9 +102,9 @@ class _LoginState extends ConsumerState<Login> {
                           //   final user =
                           //       auth.signInWithEmail(email.text, password.text);
                           //   if (user != null) {
-                          //     ref.read(goRouterNotifierProvider).isLoggedIn =
-                          //         true;
-                          GoRouter.of(context).go('/home');
+                              ref.read(goRouterNotifierProvider).isLoggedIn =
+                                  true;
+                          GoRouter.of(context).go('/');
                           //   }
                           // }
                         },

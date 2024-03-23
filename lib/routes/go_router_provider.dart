@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../widgets/bottom_nav_bar.dart';
 import '../screens/tabs/achievements.dart';
 import '../screens/miscellaneous/attendance.dart';
 import '../screens/miscellaneous/calendar.dart';
@@ -11,9 +15,7 @@ import '../screens/miscellaneous/results.dart';
 import '../screens/miscellaneous/subjects.dart';
 import '../screens/miscellaneous/syllabus.dart';
 import '../routes/go_router_notifier.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: 'shell');
@@ -54,29 +56,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             );
           }),
       GoRoute(
-        path: '/home',
-        name: "Home",
-        builder: (context, state) => HomePage(key: state.pageKey),
-      ),
-      GoRoute(
         path: '/attendance',
         name: "Attendance",
         builder: (context, state) => AttendancePage(key: state.pageKey),
-      ),
-      GoRoute(
-        path: '/profile',
-        name: "Profile",
-        builder: (context, state) => Profile(key: state.pageKey),
-      ),
-      GoRoute(
-        path: '/achievements',
-        name: "Achievements",
-        builder: (context, state) => Achievements(key: state.pageKey),
-      ),
-      GoRoute(
-        path: '/notes',
-        name: "Notes",
-        builder: (context, state) => Notes(key: state.pageKey),
       ),
       GoRoute(
         path: '/calendar',
@@ -100,19 +82,38 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
       ShellRoute(
         navigatorKey: _shell,
-        builder: (context, state, child) => HomePage(key: state.pageKey),
+        builder: (context, state, child) => BottomNavBar(child: child),
         routes: [
           GoRoute(
             path: '/',
-            name: "Root",
+            name: "Home",
             redirect: (context, state) =>
                 ref.read(goRouterNotifierProvider).isLoggedIn == true
-                    ? '/register'
+                    ? '/'
                     : '/login',
+            parentNavigatorKey: _shell,
             builder: (context, state) => HomePage(
               key: state.pageKey,
             ),
-          )
+          ),
+          GoRoute(
+            path: '/profile',
+            name: "Profile",
+            parentNavigatorKey: _shell,
+            builder: (context, state) => Profile(key: state.pageKey),
+          ),
+          GoRoute(
+            path: '/achievements',
+            name: "Achievements",
+            parentNavigatorKey: _shell,
+            builder: (context, state) => Achievements(key: state.pageKey),
+          ),
+          GoRoute(
+            path: '/notes',
+            name: "Notes",
+            parentNavigatorKey: _shell,
+            builder: (context, state) => Notes(key: state.pageKey),
+          ),
         ],
       ),
     ],
