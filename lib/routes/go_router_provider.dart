@@ -16,7 +16,6 @@ import '../screens/miscellaneous/subjects.dart';
 import '../screens/miscellaneous/syllabus.dart';
 import '../routes/go_router_notifier.dart';
 
-
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: 'shell');
 
@@ -58,26 +57,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/attendance',
         name: "Attendance",
+        parentNavigatorKey: _root,
         builder: (context, state) => AttendancePage(key: state.pageKey),
       ),
       GoRoute(
         path: '/calendar',
         name: "Calendar",
+        parentNavigatorKey: _root,
         builder: (context, state) => Calendar(key: state.pageKey),
       ),
       GoRoute(
         path: '/syllabus',
         name: "Syllabus",
+        parentNavigatorKey: _root,
         builder: (context, state) => Syllabus(key: state.pageKey),
       ),
       GoRoute(
         path: '/subjects',
         name: "Subjects",
+        parentNavigatorKey: _root,
         builder: (context, state) => Subjects(key: state.pageKey),
       ),
       GoRoute(
         path: '/results',
         name: "Results",
+        parentNavigatorKey: _root,
         builder: (context, state) => Results(key: state.pageKey),
       ),
       ShellRoute(
