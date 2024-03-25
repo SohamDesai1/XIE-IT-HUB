@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import '../models/student.dart';
 import 'tt_card.dart';
-import '../utils/timeTable.dart';
 
 class Timeline extends StatefulWidget {
   const Timeline({super.key});
@@ -12,16 +14,10 @@ class Timeline extends StatefulWidget {
 }
 
 class _TimelineState extends State<Timeline> {
-  List<String> tt = [
-    "Holiday",
-    "Holiday",
-    "Holiday",
-    "Holiday",
-    "Holiday",
-    "Holiday",
-    "Holiday",
-  ];
+  var db = FirebaseFirestore.instance;
 
+  late String day;
+  late List<String> tt;
   late List<Map<String, dynamic>> lectures;
 
   @override
@@ -30,27 +26,39 @@ class _TimelineState extends State<Timeline> {
     super.initState();
   }
 
-  void getLectures() {
-    int currentDay = DateTime.now().weekday;
-    switch (currentDay) {
+  void getLectures() async {
+    switch (DateTime.now().weekday) {
       case DateTime.monday:
-        tt = monday;
+        day = 'Monday';
         break;
       case DateTime.tuesday:
-        tt = tuesday;
+        day = 'Tuesday';
         break;
       case DateTime.wednesday:
-        tt = wednesday;
+        day = 'Wednesday';
         break;
       case DateTime.thursday:
-        tt = thursday;
+        day = 'Thursday';
         break;
       case DateTime.friday:
-        tt = friday;
+        day = 'Friday';
         break;
-      default:
-        return;
+      case DateTime.saturday:
+        day = 'Saturday';
+        break;
+      case DateTime.sunday:
+        day = 'Sunday';
+        break;
     }
+
+    var hiveBox = await Hive.openBox<Student>('students');
+    var year = hiveBox.get(1)!.year;
+
+    var res = await db.collection(year).doc('time_table').get();
+    var data = res.data();
+    tt = data![day];
+
+    await hiveBox.close();
   }
 
   void setLectures() {
