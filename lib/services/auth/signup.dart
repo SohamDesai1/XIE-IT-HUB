@@ -7,7 +7,6 @@ import '/models/student.dart';
 
 final signupProvider = ChangeNotifierProvider((ref) => Signup());
 
-
 class Signup extends ChangeNotifier {
   signupWithEmail(String emailAddress, String password) async {
     try {
@@ -27,9 +26,9 @@ class Signup extends ChangeNotifier {
   }
 
   saveStudent(
-      int xieID, String fullName, String email, String year, int rollNo) {
-    Box<Student> studBox = Hive.openBox('students') as Box<Student>;
+      int xieID, String fullName, String email, String year, int rollNo) async {
+    var studBox = await Hive.openBox<Student>('students');
     studBox.add(Student(xieID, fullName, email, year, rollNo));
-    studBox.close();
+    await studBox.close();
   }
 }

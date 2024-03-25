@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
-import '../../services/database.dart';
+import '../../services/subjects.dart';
 
 class Subjects extends ConsumerStatefulWidget {
   const Subjects({super.key});

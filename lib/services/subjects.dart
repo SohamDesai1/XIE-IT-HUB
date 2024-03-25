@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tuple/tuple.dart';
+import 'dart:developer';
 
 final hiveDataProvider =
     FutureProvider<Tuple2<List<String>, List<String>>>((ref) async {
@@ -14,10 +15,9 @@ List<String> subjectNames = [];
 List<String> labNames = [];
 late String sem;
 Future<Tuple2<List<String>, List<String>>> getSubjects() async {
-
   var hiveBox = await Hive.openBox('students');
-  var year = hiveBox.get('year');
-
+  var year = hiveBox.get(1).year;
+  log(year);
   final month = DateTime.now().month;
 
   if (year == "SE" && month >= 1 && month <= 6) {
@@ -43,5 +43,6 @@ Future<Tuple2<List<String>, List<String>>> getSubjects() async {
   for (QueryDocumentSnapshot doc1 in docs1.docs) {
     labNames.add(doc1['subject_name']);
   }
+  await hiveBox.close();
   return Tuple2<List<String>, List<String>>(subjectNames, labNames);
 }
