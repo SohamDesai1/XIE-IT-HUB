@@ -17,7 +17,15 @@ class _TimelineState extends State<Timeline> {
   var db = FirebaseFirestore.instance;
 
   late String day;
-  late List<String> tt;
+  List<String> tt = [
+    "No Lecs",
+    "No Lecs",
+    "No Lecs",
+    "No Lecs",
+    "No Lecs",
+    "No Lecs",
+    "No Lecs",
+  ];
   late List<Map<String, dynamic>> lectures;
 
   @override
