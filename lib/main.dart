@@ -34,27 +34,29 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(goRouterProvider);
-    return Sizer(
-      builder: (context, orientation, deviceType) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            canvasColor: const Color.fromARGB(255, 255, 255, 255),
-            appBarTheme: AppBarTheme(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                toolbarHeight: 80,
-                elevation: 0,
-                titleTextStyle: const TextStyle(
-                    fontSize: 22,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700),
-                iconTheme: const IconThemeData(color: Colors.white)),
-          ),
-          routeInformationParser: router.routeInformationParser,
-          routeInformationProvider: router.routeInformationProvider,
-          routerDelegate: router.routerDelegate,
-        );
-      },
+    return SafeArea(
+      child: Sizer(
+        builder: (context, orientation, deviceType) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              canvasColor: const Color.fromARGB(255, 255, 255, 255),
+              appBarTheme: AppBarTheme(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  toolbarHeight: 80,
+                  elevation: 0,
+                  titleTextStyle: const TextStyle(
+                      fontSize: 22,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700),
+                  iconTheme: const IconThemeData(color: Colors.white)),
+            ),
+            routeInformationParser: router.routeInformationParser,
+            routeInformationProvider: router.routeInformationProvider,
+            routerDelegate: router.routerDelegate,
+          );
+        },
+      ),
     );
   }
 }
