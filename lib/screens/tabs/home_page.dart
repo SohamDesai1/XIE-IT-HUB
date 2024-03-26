@@ -6,21 +6,6 @@ import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.da
 import '/widgets/timeline.dart';
 import '/widgets/tiles.dart';
 
-void main() {
-  runApp(
-    ProviderScope(
-      child: Sizer(
-        builder: (context, orientation, deviceType) {
-          return const MaterialApp(
-            home: HomePage(),
-            debugShowCheckedModeBanner: false,
-          );
-        },
-      ),
-    ),
-  );
-}
-
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -39,11 +24,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     "Calendar",
     "Subjects",
     "Syllabus",
-    "Assignments",
-    "Placements",
-    "Results",
+    "TPO Activities",
     "Student Committee",
-    "TPO Activities"
+    "Results",
   ];
 
   @override
@@ -142,37 +125,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         Tile(
                             color: const Color(0xFF85D3FF),
-                            image: "assets/images/tiles/ass.png",
+                            image: "assets/images/tiles/stud.png",
                             name: tiles[3])
-                      ],
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2.h),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Tile(
-                            color: const Color(0xFFAA81EE),
-                            image: "assets/images/tiles/place.png",
-                            name: tiles[4]),
-                        SizedBox(
-                          width: 4.5.w,
-                        ),
-                        InkWell(
-                          onTap: () => GoRouter.of(context).push('/results'),
-                          child: Tile(
-                              color: const Color(0xFFFEBBC7),
-                              image: "assets/images/tiles/res.png",
-                              name: tiles[5]),
-                        )
                       ],
                     ),
                     SizedBox(
@@ -193,15 +147,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: Tile(
                               color: const Color(0xFFDFF978),
                               image: "assets/images/tiles/stud.png",
-                              name: tiles[6]),
+                              name: tiles[4]),
                         ),
                         SizedBox(
                           width: 4.5.w,
                         ),
-                        Tile(
-                            color: const Color(0xFFF8DAB5),
-                            image: "assets/images/tiles/stud.png",
-                            name: tiles[7])
+                        InkWell(
+                          onTap: () => GoRouter.of(context).push('/results'),
+                          child: Tile(
+                              color: const Color(0xFFFEBBC7),
+                              image: "assets/images/tiles/res.png",
+                              name: tiles[5]),
+                        )
                       ],
                     ),
                     SizedBox(
