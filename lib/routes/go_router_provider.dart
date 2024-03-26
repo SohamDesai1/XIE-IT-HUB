@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../routes/go_router_notifier.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../screens/tabs/achievements.dart';
 import '../screens/miscellaneous/attendance.dart';
@@ -14,7 +15,7 @@ import '../screens/auth/register2.dart';
 import '../screens/miscellaneous/results.dart';
 import '../screens/miscellaneous/subjects.dart';
 import '../screens/miscellaneous/syllabus.dart';
-import '../routes/go_router_notifier.dart';
+import '../screens/miscellaneous/student_council.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: 'shell');
@@ -83,6 +84,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: "Results",
         parentNavigatorKey: _root,
         builder: (context, state) => Results(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/council',
+        name: "Student Council",
+        parentNavigatorKey: _root,
+        builder: (context, state) => StudentCouncil(key: state.pageKey),
       ),
       ShellRoute(
         navigatorKey: _shell,

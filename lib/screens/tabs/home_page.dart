@@ -188,10 +188,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Tile(
-                            color: const Color(0xFFDFF978),
-                            image: "assets/images/tiles/stud.png",
-                            name: tiles[6]),
+                        InkWell(
+                          onTap: () => GoRouter.of(context).push('/council'),
+                          child: Tile(
+                              color: const Color(0xFFDFF978),
+                              image: "assets/images/tiles/stud.png",
+                              name: tiles[6]),
+                        ),
                         SizedBox(
                           width: 4.5.w,
                         ),
