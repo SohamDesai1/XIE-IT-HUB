@@ -3,15 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../routes/go_router_notifier.dart';
 import '../widgets/bottom_nav_bar.dart';
-import '../screens/tabs/achievements.dart';
-import '../screens/miscellaneous/attendance.dart';
-import '../screens/miscellaneous/calendar.dart';
 import '../screens/tabs/home_page.dart';
-import '../screens/auth/login.dart';
-import '../screens/tabs/notes.dart';
+import '../screens/tabs/activities.dart';
 import '../screens/tabs/profile.dart';
+import '../screens/auth/login.dart';
 import '../screens/auth/register1.dart';
 import '../screens/auth/register2.dart';
+import '../screens/miscellaneous/attendance.dart';
+import '../screens/miscellaneous/calendar.dart';
 import '../screens/miscellaneous/results.dart';
 import '../screens/miscellaneous/subjects.dart';
 import '../screens/miscellaneous/syllabus.dart';
@@ -114,16 +113,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => Profile(key: state.pageKey),
           ),
           GoRoute(
-            path: '/achievements',
-            name: "Achievements",
+            path: '/activities',
+            name: "Activities",
             parentNavigatorKey: _shell,
-            builder: (context, state) => Achievements(key: state.pageKey),
-          ),
-          GoRoute(
-            path: '/notes',
-            name: "Notes",
-            parentNavigatorKey: _shell,
-            builder: (context, state) => Notes(key: state.pageKey),
+            builder: (context, state) => Activities(key: state.pageKey),
           ),
         ],
       ),

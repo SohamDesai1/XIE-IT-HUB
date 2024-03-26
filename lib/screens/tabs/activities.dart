@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Notes extends StatefulWidget {
-  const Notes({super.key});
+class Activities extends StatefulWidget {
+  const Activities({super.key});
 
   @override
-  State<Notes> createState() => _NotesState();
+  State<Activities> createState() => _ActivitiesState();
 }
 
-class _NotesState extends State<Notes> {
+class _ActivitiesState extends State<Activities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class _NotesState extends State<Notes> {
         backgroundColor: const Color(0xC90000FF),
         title: const Center(
           child: Text(
-            "Notes",
+            "Achievements",
             style: TextStyle(color: Colors.white),
           ),
         ),

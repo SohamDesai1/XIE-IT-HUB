@@ -21,12 +21,9 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
         GoRouter.of(context).go('/');
         break;
       case 1:
-        GoRouter.of(context).go('/achievements');
+        GoRouter.of(context).go('/activities');
         break;
       case 2:
-        GoRouter.of(context).go('/notes');
-        break;
-      case 3:
         GoRouter.of(context).go('/profile');
         break;
       default:
@@ -55,9 +52,6 @@ class _BottomNavBarState extends ConsumerState<BottomNavBar> {
           ),
           FloatingNavbarItem(
             icon: Icons.emoji_events_outlined,
-          ),
-          FloatingNavbarItem(
-            icon: Icons.file_copy_outlined,
           ),
           FloatingNavbarItem(
             icon: Icons.person_outline_outlined,
