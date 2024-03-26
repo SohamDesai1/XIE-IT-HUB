@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import 'package:tuple/tuple.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -12,22 +11,21 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
-  late String oddLink;
-  late String evenLink;
+  late String institute;
+  late String it;
   List<String> links = [];
 
-  Future<Tuple2<List<String>, List<String>>> getLink() async {
-    List<String> year = ["ODD Year", "EVEN Year"];
+  Future<List<String>> getLink() async {
     var db = FirebaseFirestore.instance;
     final docref = db.collection('utils').doc('pdfs');
     final doc = await docref.get();
     final data = doc.data();
-    oddLink = data!['odd_year_tt'];
-    links.add(oddLink);
-    evenLink = data['even_year_tt'];
-    links.add(evenLink);
+    institute = data!['even_year_tt'];
+    links.add(institute);
+    it = data['it_even'];
+    links.add(it);
 
-    return Tuple2<List<String>, List<String>>(year, links);
+    return links;
   }
 
   @override
@@ -46,47 +44,67 @@ class _CalendarState extends State<Calendar> {
             ),
           ),
         ),
-        body: FutureBuilder<Tuple2<List<String>, List<String>>>(
+        body: FutureBuilder<List<String>>(
           future: getLink(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              var years = snapshot.data!.item1;
-              var links = snapshot.data!.item2;
+              var links = snapshot.data!;
               return Padding(
                 padding: EdgeInsets.only(
                   top: 1.5.h,
                 ),
                 child: SizedBox(
                   height: 55.h,
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PDFScreen(
-                                    text: years[index],
-                                    link: links[index],
-                                  ),
-                                )),
-                            child: Container(
-                              height: 6.h,
-                              width: 80.w,
-                              decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Center(child: Text(years[index])),
-                            ),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 5.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Institute Calendar",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Divider(color: Colors.black, endIndent: 15.w),
+                        InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PDFScreen(
+                                  text: "Institute",
+                                  link: links[0],
+                                ),
+                              )),
+                          child: SizedBox(
+                            height: 6.h,
+                            width: 60.w,
+                            child: const Center(child: Text("Show PDF")),
                           ),
-                          SizedBox(
-                            height: 3.h,
-                          )
-                        ],
-                      );
-                    },
-                    itemCount: years.length,
+                        ),
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        const Text(
+                          "Department Calendar",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Divider(color: Colors.black, endIndent: 15.w),
+                        InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PDFScreen(
+                                  text: " Department",
+                                  link: links[1],
+                                ),
+                              )),
+                          child: SizedBox(
+                            height: 6.h,
+                            width: 60.w,
+                            child: const Center(child: Text("Show PDF")),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
