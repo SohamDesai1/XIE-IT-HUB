@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sizer/sizer.dart';
 import '../../services/subjects.dart';
@@ -187,7 +188,10 @@ class _SubjectsState extends ConsumerState<Subjects> {
                 ),
               );
             },
-            error: (error, stackTrace) => Text('Error: $error'),
+            error: (error, stackTrace) {
+              log(error.toString());
+              return const Center(child: Text('Error loading Subjcts'));
+            },
             loading: () => const Center(child: CircularProgressIndicator())));
   }
 }
