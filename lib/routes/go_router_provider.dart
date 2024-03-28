@@ -15,6 +15,8 @@ import '../screens/miscellaneous/results.dart';
 import '../screens/miscellaneous/subjects.dart';
 import '../screens/miscellaneous/syllabus.dart';
 import '../screens/miscellaneous/student_council.dart';
+import '../screens/teachers/home.dart';
+import '../screens/teachers/cal_upload.dart';
 
 final GlobalKey<NavigatorState> _root = GlobalKey(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shell = GlobalKey(debugLabel: 'shell');
@@ -89,6 +91,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: "Student Council",
         parentNavigatorKey: _root,
         builder: (context, state) => StudentCouncil(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/teacher',
+        name: "Teacher Home",
+        parentNavigatorKey: _root,
+        builder: (context, state) => TeacherHome(key: state.pageKey),
+      ),
+      GoRoute(
+        path: '/calUpload',
+        name: "Calendar Upload",
+        parentNavigatorKey: _root,
+        builder: (context, state) => CalendarUpload(key: state.pageKey),
       ),
       ShellRoute(
         navigatorKey: _shell,
